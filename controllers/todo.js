@@ -5,8 +5,18 @@ async function create(req, res) {
     title: req.body.todo,
     isDone: false
   }
-  const response = await todoModel.saveTodo(todo)
-  res.send(response)
+  await todoModel.saveTodo(todo)
+    .then( data => {
+      const response = {
+        message: 'ToDo created',
+        data: data
+      }
+      res.send(response).status(201)
+    })
+    .catch( error => {
+      res.send(error).status(400)
+    })
+
 }
 
 module.exports = {

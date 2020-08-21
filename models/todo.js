@@ -1,9 +1,7 @@
 const db = require('../database/createDB.js')
 
 async function saveTodo(todo) {
-  const response = await db.insert(todo)
-  console.log(response)
-  return response
+  return await db.insert(todo)
 }
 
 module.exports = {
