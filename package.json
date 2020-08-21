@@ -1,0 +1,22 @@
+{
+  "name": "nackademin-todo-app",
+  "version": "1.0.0",
+  "description": "ToDo app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InnuendoX3/nackademin-todo-app.git"
+  },
+  "author": "Johan Garzon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InnuendoX3/nackademin-todo-app/issues"
+  },
+  "homepage": "https://github.com/InnuendoX3/nackademin-todo-app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
