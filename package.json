@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/InnuendoX3/nackademin-todo-app#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nedb-promises": "^4.0.4"
   }
 }
