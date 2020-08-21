@@ -16,9 +16,21 @@ async function create(req, res) {
     .catch( error => {
       res.send(error).status(400)
     })
+}
 
+async function getTodo(req, res) {
+  const id = req.params.id
+  await todoModel.findTodo(id)
+    .then( todo => {
+      const response = todo ? todo : { message: 'Todo-item does not exist'}
+      res.send(response)
+    })
+    .catch( error => {
+      res.send(error)
+    })
 }
 
 module.exports = {
   create,
+  getTodo,
 }
