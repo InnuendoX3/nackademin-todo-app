@@ -54,7 +54,8 @@ async function deleteTodo(req, res) {
 async function editTodo(req, res) {
   const id = req.params.id
   const newTodo = {
-    title: req.body.todo
+    title: req.body.todo,
+    isDone: req.body.isDone
   }
   await todoModel.updateTodo(id, newTodo)
     .then( data => {
