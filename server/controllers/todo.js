@@ -1,5 +1,6 @@
 const todoModel = require('../models/todo')
 
+// Retrieve all the Todos from database
 async function getAllTodos(req, res) {
   await todoModel.findAllTodos()
     .then( data => {
@@ -7,6 +8,7 @@ async function getAllTodos(req, res) {
     })
 }
 
+// Create a new Todo
 async function create(req, res) {
   const todo = {
     title: req.body.todo,
@@ -25,6 +27,7 @@ async function create(req, res) {
     })
 }
 
+// Retrieve just one Todo by its id
 async function getTodo(req, res) {
   const id = req.params.id
   await todoModel.findTodo(id)
@@ -37,6 +40,7 @@ async function getTodo(req, res) {
     })
 }
 
+// Delete a Todo by its id
 async function deleteTodo(req, res) {
   const id = req.params.id
   await todoModel.removeTodo(id)
@@ -51,6 +55,8 @@ async function deleteTodo(req, res) {
     })
 }
 
+// Edit Todo´s title and isDone 
+// ? Is it better make a dedicated function for toggle the isDone key ?
 async function editTodo(req, res) {
   const id = req.params.id
   const newTodo = {
