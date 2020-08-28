@@ -1,8 +1,17 @@
 const Datastore = require('nedb-promises')
-const db = Datastore.create({
-  filename: './database/store.db',
+
+const dbTodos = Datastore.create({
+  filename: './database/storeTodos.db',
   timestampData: true,
   autoload: true
 })
 
-module.exports = db
+const dbUsers = Datastore.create({
+  filename: './database/storeUsers.db',
+  autoload: true
+})
+
+module.exports = {
+  dbTodos,
+  dbUsers
+}

@@ -1,23 +1,25 @@
-const todoModel = require('../models/todo')
+const userModel = require('../models/user')
 
-// Retrieve all the Todos from database
-async function getAllTodos(req, res) {
-  await todoModel.findTodos()
+// Retrieve all the Users from database
+async function getAllUsers(req, res) {
+  await userModel.findUsers()
     .then( data => {
       res.send(data)
     })
 }
 
-// Create a new Todo
+
+// Create a new User
 async function create(req, res) {
-  const todo = {
-    title: req.body.todo,
-    isDone: false
+  const user = {
+    username: req.body.username,
+    password: req.body.password,
+    role: req.body.role
   }
-  await todoModel.saveTodo(todo)
+  await userModel.saveUser(user)
     .then( data => {
       const response = {
-        message: 'Todo created',
+        message: 'User created',
         data: data
       }
       res.send(response).status(201)
@@ -28,7 +30,7 @@ async function create(req, res) {
 }
 
 // Retrieve just one Todo by its id
-async function getTodo(req, res) {
+/* async function getTodo(req, res) {
   const id = req.params.id
   await todoModel.findTodo(id)
     .then( todo => {
@@ -75,12 +77,9 @@ async function editTodo(req, res) {
     .catch( error => {
       res.send(error).status(400)
     })
-}
+} */
 
 module.exports = {
-  getAllTodos,
+  getAllUsers,
   create,
-  getTodo,
-  deleteTodo,
-  editTodo,
 }

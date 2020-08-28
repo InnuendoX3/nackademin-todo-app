@@ -1,36 +1,36 @@
-const db = require('../database/createDB.js')
+const { dbTodos } = require('../database/createDB')
 
-async function findAllTodos() {
-  return await db.find()
+async function findTodos() {
+  return await dbTodos.find()
 }
 
 async function saveTodo(todo) {
-  return await db.insert(todo)
+  return await dbTodos.insert(todo)
 }
 
 async function findTodo(id) {
   const query = {
     _id: id
   }
-  return await db.findOne(query)
+  return await dbTodos.findOne(query)
 }
 
 async function removeTodo(id) {
   const query = {
     _id: id
   }
-  return await db.remove(query)
+  return await dbTodos.remove(query)
 }
 
 async function updateTodo(id, newTodo) {
   const query = {
     _id: id
   }
-  return await db.update(query, { $set: newTodo }, {returnUpdatedDocs: true})
+  return await dbTodos.update(query, { $set: newTodo }, {returnUpdatedDocs: true})
 }
 
 module.exports = {
-  findAllTodos,
+  findTodos,
   saveTodo,
   findTodo,
   removeTodo,
