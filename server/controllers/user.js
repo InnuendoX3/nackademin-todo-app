@@ -29,12 +29,12 @@ async function create(req, res) {
     })
 }
 
-// Retrieve just one Todo by its id
-/* async function getTodo(req, res) {
+// Retrieve a User by its id
+async function getUser(req, res) {
   const id = req.params.id
-  await todoModel.findTodo(id)
-    .then( todo => {
-      const response = todo ? todo : { message: 'Todo-item does not exist' }
+  await userModel.findUser(id)
+    .then( user => {
+      const response = user ? user : { message: 'That user does not exist' }
       res.send(response).status(200)
     })
     .catch( error => {
@@ -42,13 +42,13 @@ async function create(req, res) {
     })
 }
 
-// Delete a Todo by its id
-async function deleteTodo(req, res) {
+// Delete a User by its id
+async function deleteUser(req, res) {
   const id = req.params.id
-  await todoModel.removeTodo(id)
+  await userModel.removeUser(id)
     .then( numDeleted => {
       const response = {
-        message: `Number of Todos deleted: ${numDeleted}`
+        message: `Number of user deleted: ${numDeleted}`
       }
       res.send(response).status(200)
     })
@@ -57,17 +57,17 @@ async function deleteTodo(req, res) {
     })
 }
 
-// Edit Todo´s title and isDone 
-// ? Is it better make a dedicated function for toggle the isDone key ?
-async function editTodo(req, res) {
+// Edit User: name, password and role
+async function editUser(req, res) {
   const id = req.params.id
-  const newTodo = {
-    title: req.body.todo,
-    isDone: req.body.isDone
+  const newUserData = {
+    username: req.body.username,
+    password: req.body.password,
+    role: req.body.role
   }
-  await todoModel.updateTodo(id, newTodo)
+  await userModel.updateUser(id, newUserData)
     .then( data => {
-      const message = data ? 'Todo-item updated' : 'Could not update Todo-item'
+      const message = data ? 'User updated' : 'Could not update User'
       const response = {
         message: message,
         data: data
@@ -77,9 +77,12 @@ async function editTodo(req, res) {
     .catch( error => {
       res.send(error).status(400)
     })
-} */
+}
 
 module.exports = {
   getAllUsers,
   create,
+  getUser,
+  deleteUser,
+  editUser
 }
