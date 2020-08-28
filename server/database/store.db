@@ -1,20 +1,3 @@
-{"title":"Todo to remove #3","isDone":false,"_id":"3OmxoOuUf84VQsGu"}
-{"title":"Todo to remove or update #12","isDone":false,"_id":"5mW6UKNu9MDxL0bc"}
-{"title":"Todo to remove or update #4","isDone":false,"_id":"5nmd3zXaE2moEL8P"}
-{"title":"Learn React","isDone":false,"_id":"7Pu05lsjhpqKCPM5"}
-{"title":"Todo to remove or update #16","isDone":false,"_id":"AWElTiC5HtchkS6F"}
-{"title":"Todo after making SERVER folder","isDone":false,"_id":"AogGWPJEz2dE00rf"}
-{"title":"Todo to remove or update #3","isDone":false,"_id":"JZOqCJgNZciMLLK5"}
-{"title":"Todo to remove or update #17","isDone":false,"_id":"L2m647uvVoavkcl2"}
-{"title":"This 7 should be updated","isDone":false,"_id":"PMjwwB1cxfkzP4gc"}
-{"title":"Drink more water #2","isDone":false,"_id":"T1RmvWrPLIp9anV2"}
-{"title":"Todo to remove","isDone":false,"_id":"Tb8PHeyOPrX35NmM"}
-{"title":"Do the laundry","isDone":false,"_id":"UrL07iBqyKu7z3dc"}
-{"title":"Drink more water","isDone":false,"_id":"XepS4dui8b51cKIo"}
-{"title":"Todo to remove or update #15","isDone":false,"_id":"ZRvipIibgHHM69Xx"}
-{"title":"Todo to remove or update #11","isDone":false,"_id":"fZXhsMUf8nAnHKTL"}
-{"title":"Todo to remove #2","isDone":false,"_id":"hHc4iuwYbXzauN7J"}
-{"title":"Shop milk and bread","isDone":false,"_id":"hOHNZ1vhxT5nKxgp"}
-{"title":"This 13 should be updated  and return an object #4","isDone":true,"_id":"pG9q0oRkrtv8AbO3"}
-{"title":"Todo to remove or update #8","isDone":false,"_id":"qVhGSwufeihIbiAO"}
-{"title":"Do the dishes","isDone":false,"_id":"z1kHJ9PAnBc1Ur4D"}
+{"title":"Leer más la Palabra","isDone":false,"_id":"Z6pjKfbfi7EAW124","createdAt":{"$$date":1598601466293},"updatedAt":{"$$date":1598601466293}}
+{"title":"Hablar más con mis hermanas y escucharlas","_id":"dIdufprLwf8CFd9F","createdAt":{"$$date":1598601485832},"updatedAt":{"$$date":1598603065495},"isDone":true}
+{"title":"Empezar a buscar su rostro","isDone":true,"_id":"hBQhcK2RiXN8tRCZ","createdAt":{"$$date":1598602328935},"updatedAt":{"$$date":1598603015354}}
