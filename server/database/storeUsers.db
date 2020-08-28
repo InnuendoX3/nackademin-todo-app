@@ -1,2 +1,4 @@
 {"username":"Johan Garzon","password":"12345","role":"admin","_id":"FGK5GYxELQKlCw1z"}
+{"username":"Fanny","password":"12345","role":"user","_id":"XAYI3nwLqjGNk2lj"}
 {"username":"Kiran","password":"12345","role":"user","_id":"n8Hret5QgkwaqXbi"}
+{"username":"Fanny","role":"user","hashedPass":"$2a$10$HfVV4f9Jdw4F5wkpAC.Z6ui7DJx065tAe2w8.Bz4Clue7/bIbReny","_id":"JBRodnfj6wjpQ6lN"}
