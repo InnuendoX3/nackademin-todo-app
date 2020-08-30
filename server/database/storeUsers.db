@@ -1,3 +1,7 @@
 {"username":"Fanny","role":"user","hashedPass":"$2a$10$HfVV4f9Jdw4F5wkpAC.Z6ui7DJx065tAe2w8.Bz4Clue7/bIbReny","_id":"JBRodnfj6wjpQ6lN"}
 {"username":"Johan","role":"admin","hashedPass":"$2a$10$10XDm/YnxU2b0QK6r5tyAeRlP5vFbskcUD3wDW4op0HQwAqAcMWo.","_id":"UpBv0p8b4ZdpcEOY"}
 {"username":"Kiritan","role":"admin","hashedPass":"$2a$10$Q/6E6WSoues6GRndajR8j.q1SMbDBIeZsFdGdQg5yuS7mBb2VFlHC","_id":"Z4crMxOOgbsqdgY5"}
+{"username":"Usuario test","role":"user","hashedPass":"$2a$10$2l.4HaDXgeOazEwKrd.i2eBFR6hy4GcL9mLf1VJsWdkAkQug/7zKu","_id":"mpUpKHpKdgR8wLDN"}
+{"username":"usertest6","role":"admin","hashedPass":"$2a$10$lz3SUzZi0.rb7IysxgM4XORsxEpBF5b92rlW3rgf41CAKvlnf23t.","_id":"9hkoX7zxBAadrkil"}
+{"username":"Usuario test pa borrar","role":"user","hashedPass":"$2a$10$hq7BBO0XQOEQio6ZOEUh9O/Gg9HQvscYazJO6PrZ8hBdXAYWAiyXa","_id":"9hkoX7zxBAadrkil"}
+{"$$deleted":true,"_id":"9hkoX7zxBAadrkil"}

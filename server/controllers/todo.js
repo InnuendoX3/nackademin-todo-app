@@ -11,7 +11,7 @@ async function getAllTodos(req, res) {
 // Create a new Todo
 async function create(req, res) {
   const todo = {
-    title: req.body.todo,
+    title: req.body.title,
     isDone: false
   }
   await todoModel.saveTodo(todo)
@@ -60,7 +60,7 @@ async function deleteTodo(req, res) {
 async function editTodo(req, res) {
   const id = req.params.id
   const newTodo = {
-    title: req.body.todo,
+    title: req.body.title,
     isDone: req.body.isDone
   }
   await todoModel.updateTodo(id, newTodo)

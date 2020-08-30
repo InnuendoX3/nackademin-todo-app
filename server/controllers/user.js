@@ -78,6 +78,20 @@ async function editUser(req, res) {
       res.send(error).status(400)
     })
 }
+/* 
+async function login(req, res) {
+  const username = req.body.username
+  const password = req.body.password
+  await userModel.authenticateUser(username, password)
+    .then( response => {
+      console.log(response)
+      res.send(response)
+    })
+    .catch( error => {
+      res.send(error).status(400)
+    })
+}
+ */
 
 module.exports = {
   getAllUsers,
