@@ -1,8 +1,15 @@
 const todoModel = require('../models/todo')
 
-// Retrieve all the Todos from database
+/** 
+ *  Get all Todos
+ *  Admin get everybody's todos
+ *  User get only the todos that own
+ **/  
 async function getAllTodos(req, res) {
-  await todoModel.findTodos()
+  const filter = req.user.role === 'admin'
+    ? {}
+    : { ownerId: req.user.userId }
+  await todoModel.findTodos(filter)
     .then( data => {
       res.status(200).send(data)
     })
@@ -13,7 +20,7 @@ async function create(req, res) {
   const todo = {
     title: req.body.title,
     isDone: false,
-    ownerId: req.body.ownerId
+    ownerId: req.user.userId
   }
   await todoModel.saveTodo(todo)
     .then( data => {

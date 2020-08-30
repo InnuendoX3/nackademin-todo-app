@@ -1,7 +1,7 @@
 const { dbTodos } = require('../database/createDB')
 
-async function findTodos() {
-  return await dbTodos.find()
+async function findTodos(filter) {
+  return await dbTodos.find(filter)
 }
 
 async function saveTodo(todo) {

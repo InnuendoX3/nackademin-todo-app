@@ -1,12 +1,11 @@
+{"title":"Ir al Dagis","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"1BKRYuwyD3ml8x1L","createdAt":{"$$date":1598826140260},"updatedAt":{"$$date":1598826140260}}
 {"title":"Buscar el rostro del Señor","isDone":false,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"8WRmIlWeAklobRXt","createdAt":{"$$date":1598792283992},"updatedAt":{"$$date":1598792283992}}
-{"title":"No ladrarle a los niños","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"9GWOyvP6vdFsVcan","createdAt":{"$$date":1598789103796},"updatedAt":{"$$date":1598789103796}}
+{"title":"No ladrarle a los niños","isDone":true,"ownerId":"Z4crMxOOgbsqdgY5","_id":"9GWOyvP6vdFsVcan","createdAt":{"$$date":1598789103796},"updatedAt":{"$$date":1598825126349}}
+{"title":"Marcar territorio","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"ZkdkWl9aMQCe5tWz","createdAt":{"$$date":1598826188964},"updatedAt":{"$$date":1598826188964}}
 {"title":"Practicar lettering","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"dwbQTXRJ4keZ2zWD","createdAt":{"$$date":1598799024669},"updatedAt":{"$$date":1598799024669}}
 {"title":"No saltarle a ninguna persona","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"kqqjZCzKXG3RWizP","createdAt":{"$$date":1598789151956},"updatedAt":{"$$date":1598792460486}}
 {"title":"Preparar la comidita","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"ktvg6dzkV3Jjzv2f","createdAt":{"$$date":1598799041351},"updatedAt":{"$$date":1598799041351}}
 {"title":"Estar pendiente de otras personas","isDone":false,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"l7H9g6gV0zee4bs6","createdAt":{"$$date":1598792330530},"updatedAt":{"$$date":1598792330530}}
 {"title":"Hacer ejercicio","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"lhYpasAuYUN6Z9ZE","createdAt":{"$$date":1598798984154},"updatedAt":{"$$date":1598798984154}}
 {"title":"Hacer feliz a mi esposa","isDone":false,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"nTbctkgikC5UWVxy","createdAt":{"$$date":1598792308162},"updatedAt":{"$$date":1598792308162}}
-{"title":"Este es para editar","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"9ipjOSiajqitwmDn","createdAt":{"$$date":1598824967711},"updatedAt":{"$$date":1598824967711}}
-{"$$deleted":true,"_id":"9ipjOSiajqitwmDn"}
-{"isDone":true,"ownerId":"Z4crMxOOgbsqdgY5","_id":"9GWOyvP6vdFsVcan","createdAt":{"$$date":1598789103796},"updatedAt":{"$$date":1598825099261}}
-{"title":"No ladrarle a los niños","isDone":true,"ownerId":"Z4crMxOOgbsqdgY5","_id":"9GWOyvP6vdFsVcan","createdAt":{"$$date":1598789103796},"updatedAt":{"$$date":1598825126349}}
+{"title":"No ladrar a otros perros","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"LFbjh6W0IKN1y6lg","createdAt":{"$$date":1598826739524},"updatedAt":{"$$date":1598826739524}}

@@ -98,7 +98,7 @@ async function login(req, res) {
     userId: user._id,
     role: user.role
   }
-  const token = { token: jwt.sign(toEncrypt, secret) }
+  const token = { token: jwt.sign(toEncrypt, secret, { expiresIn: '1h' }) }
   res.status(200).send(token)
 }
 
