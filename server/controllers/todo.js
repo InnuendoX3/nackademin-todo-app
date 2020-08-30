@@ -12,7 +12,8 @@ async function getAllTodos(req, res) {
 async function create(req, res) {
   const todo = {
     title: req.body.title,
-    isDone: false
+    isDone: false,
+    ownerId: req.body.ownerId
   }
   await todoModel.saveTodo(todo)
     .then( data => {
