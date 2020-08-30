@@ -99,7 +99,6 @@ async function login(req, res) {
     role: user.role
   }
   const token = { token: jwt.sign(toEncrypt, secret) }
-  console.log(token)
   res.status(200).send(token)
 }
 
