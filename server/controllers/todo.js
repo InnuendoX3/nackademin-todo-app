@@ -4,7 +4,7 @@ const todoModel = require('../models/todo')
 async function getAllTodos(req, res) {
   await todoModel.findTodos()
     .then( data => {
-      res.send(data)
+      res.status(200).send(data)
     })
 }
 
@@ -21,10 +21,10 @@ async function create(req, res) {
         message: 'Todo created',
         data: data
       }
-      res.send(response).status(201)
+      res.status(201).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -34,10 +34,10 @@ async function getTodo(req, res) {
   await todoModel.findTodo(id)
     .then( todo => {
       const response = todo ? todo : { message: 'Todo-item does not exist' }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -49,10 +49,10 @@ async function deleteTodo(req, res) {
       const response = {
         message: `Number of Todos deleted: ${numDeleted}`
       }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -71,10 +71,10 @@ async function editTodo(req, res) {
         message: message,
         data: data
       }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 

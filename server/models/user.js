@@ -34,12 +34,19 @@ async function updateUser(id, newUserData) {
   return await dbUsers.update(query, { $set: newDataToSave }, { returnUpdatedDocs: true })
 }
 
-async function authenticateUser(username, password) {
+
+/** Authentication functions */
+
+async function findUserByUsername(username) {
   const query = { username }
   const user = await dbUsers.findOne(query)
-  const result = bcrypt.compareSync(password, user.hashedPass)
-  return result ? user : false
+  return user
 }
+
+async function isPasswordCorrect(pass, hash) {
+  return bcrypt.compareSync(pass, hash)
+}
+
 
 
 module.exports = {
@@ -48,5 +55,6 @@ module.exports = {
   findUser,
   removeUser,
   updateUser,
-  authenticateUser
+  findUserByUsername,
+  isPasswordCorrect
 }

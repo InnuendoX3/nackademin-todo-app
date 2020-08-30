@@ -4,7 +4,7 @@ const userModel = require('../models/user')
 async function getAllUsers(req, res) {
   await userModel.findUsers()
     .then( data => {
-      res.send(data)
+      res.status(200).send(data)
     })
 }
 
@@ -22,10 +22,10 @@ async function create(req, res) {
         message: 'User created',
         data: data
       }
-      res.send(response).status(201)
+      res.status(201).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -35,10 +35,10 @@ async function getUser(req, res) {
   await userModel.findUser(id)
     .then( user => {
       const response = user ? user : { message: 'That user does not exist' }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -50,10 +50,10 @@ async function deleteUser(req, res) {
       const response = {
         message: `Number of user deleted: ${numDeleted}`
       }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
-      res.send(error).status(400)
+      res.status(400).send(error)
     })
 }
 
@@ -72,31 +72,41 @@ async function editUser(req, res) {
         message: message,
         data: data
       }
-      res.send(response).status(200)
+      res.status(200).send(response)
     })
     .catch( error => {
       res.send(error).status(400)
     })
 }
-/* 
+
+
+/** Authentication functions */
+
 async function login(req, res) {
   const username = req.body.username
   const password = req.body.password
-  await userModel.authenticateUser(username, password)
-    .then( response => {
-      console.log(response)
-      res.send(response)
-    })
-    .catch( error => {
-      res.send(error).status(400)
-    })
+
+  const user = await userModel.findUserByUsername(username)
+  if(!user) return res.status(400).send({message: 'USERNAME or password incorrect'})
+
+  const isPassword = await userModel.isPasswordCorrect(password, user.hashedPass)
+  if(!isPassword) return res.status(400).send({message: 'Username or PASSWORD incorrect'})
+
+  // JWT
+  const tempMessage = {
+    message: "User is logged in. It is working",
+    nowWath: "Apply JWT and then Authorization"
+  }
+  res.status(200).send(tempMessage)
+
 }
- */
+
 
 module.exports = {
   getAllUsers,
   create,
   getUser,
   deleteUser,
-  editUser
+  editUser,
+  login
 }
