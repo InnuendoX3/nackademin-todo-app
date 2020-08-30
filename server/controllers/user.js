@@ -1,4 +1,6 @@
 const userModel = require('../models/user')
+const jwt = require('jsonwebtoken')
+const secret = process.env.JWT_SECRET
 
 // Retrieve all the Users from database
 async function getAllUsers(req, res) {
@@ -8,9 +10,8 @@ async function getAllUsers(req, res) {
     })
 }
 
-
 // Create a new User
-async function create(req, res) {
+async function createUser(req, res) {
   const user = {
     username: req.body.username,
     password: req.body.password,
@@ -92,19 +93,20 @@ async function login(req, res) {
   const isPassword = await userModel.isPasswordCorrect(password, user.hashedPass)
   if(!isPassword) return res.status(400).send({message: 'Username or PASSWORD incorrect'})
 
-  // JWT
-  const tempMessage = {
-    message: "User is logged in. It is working",
-    nowWath: "Apply JWT and then Authorization"
+  // JWT 
+  const toEncrypt = {
+    userId: user._id,
+    role: user.role
   }
-  res.status(200).send(tempMessage)
-
+  const token = { token: jwt.sign(toEncrypt, secret) }
+  console.log(token)
+  res.status(200).send(token)
 }
 
 
 module.exports = {
   getAllUsers,
-  create,
+  createUser,
   getUser,
   deleteUser,
   editUser,
