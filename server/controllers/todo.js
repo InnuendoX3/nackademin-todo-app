@@ -56,50 +56,42 @@ async function getTodo(req, res) {
 }
 
 // Delete a Todo by its id
+// Admin can delete everyone´s todos
+// User can delete just his own todos
 async function deleteTodo(req, res) {
   const todoId = req.params.id
   const userId = req.user.userId
   const role = req.user.role
+  let filterQuery = {}
 
-  // Admin can delete everyone´s todos
   if(role === 'admin') {
-    const filterQuery = {_id: todoId}
-    await todoModel.removeTodo(filterQuery)
-      .then( numDeleted => {
-        const response = {
-          message: `Number of Todos deleted: ${numDeleted}`
-        }
-        res.status(200).send(response)
-      })
-      .catch( error => {
-        res.status(400).send(error)
-      })
+    filterQuery = {_id: todoId}
   }
-
-  // User can delete his own todos
   if(role === 'user') {
-    const filterQuery = {
+    filterQuery = {
       _id: todoId,
       ownerId: userId
     }
-    await todoModel.removeTodo(filterQuery)
-      .then( numDeleted => {
-        if(numDeleted === 0) 
-          return res.status(400).send({message: 'Unauthorized or item does not exist'})
-        const response = {
-          message: `Number of Todos deleted: ${numDeleted}`
-        }
-        res.status(200).send(response)
-      })
-      .catch( error => {
-        res.status(400).send(error)
-      })
   }
+
+  await todoModel.removeTodo(filterQuery)
+    .then( numDeleted => {
+      if(numDeleted === 0) 
+        return res.status(400).send({message: 'Unauthorized or item does not exist'})
+      const response = {
+        message: `Number of Todos deleted: ${numDeleted}`
+      }
+      res.status(200).send(response)
+    })
+    .catch( error => {
+      res.status(400).send(error)
+    })  
 
 }
 
 // Edit Todo´s title and isDone 
-// ? Is it better make a dedicated function for toggle the isDone key ?
+// Admin can edit everyone´s todos
+// User can edit just his own todos
 async function editTodo(req, res) {
   const id = req.params.id
   const userId = req.user.userId
@@ -122,9 +114,9 @@ async function editTodo(req, res) {
 
   await todoModel.updateTodo(filterQuery, newTodo)
     .then( data => {
-      const message = data ? 'Todo-item updated' : 'Unauthorized or item does not exist'
+      if(!data) return res.status(400).send({message: 'Unauthorized or item does not exist'})
       const response = {
-        message: message,
+        message: 'Todo-item updated',
         data: data
       }
       res.status(200).send(response)
