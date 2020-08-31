@@ -102,13 +102,27 @@ async function deleteTodo(req, res) {
 // ? Is it better make a dedicated function for toggle the isDone key ?
 async function editTodo(req, res) {
   const id = req.params.id
+  const userId = req.user.userId
+  const role = req.user.role
   const newTodo = {
     title: req.body.title,
     isDone: req.body.isDone
   }
-  await todoModel.updateTodo(id, newTodo)
+  let filterQuery = {}
+
+  if(role === 'admin') {
+    filterQuery = { _id: id }
+  }
+  if(role === 'user') {
+    filterQuery = {
+      _id: id,
+      ownerId: userId
+    }
+  }
+
+  await todoModel.updateTodo(filterQuery, newTodo)
     .then( data => {
-      const message = data ? 'Todo-item updated' : 'Could not update Todo-item'
+      const message = data ? 'Todo-item updated' : 'Unauthorized or item does not exist'
       const response = {
         message: message,
         data: data

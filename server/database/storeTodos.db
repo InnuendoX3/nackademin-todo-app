@@ -3,7 +3,6 @@
 {"title":"Buscar el rostro del Señor","isDone":false,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"8WRmIlWeAklobRXt","createdAt":{"$$date":1598792283992},"updatedAt":{"$$date":1598792283992}}
 {"title":"No ladrarle a los niños","isDone":true,"ownerId":"Z4crMxOOgbsqdgY5","_id":"9GWOyvP6vdFsVcan","createdAt":{"$$date":1598789103796},"updatedAt":{"$$date":1598825126349}}
 {"title":"No ladrar a otros perros","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"LFbjh6W0IKN1y6lg","createdAt":{"$$date":1598826739524},"updatedAt":{"$$date":1598826739524}}
-{"title":"This is a random post 3","isDone":false,"ownerId":"t1BxckXdxACxj1Sp","_id":"UPLlQT5Uq7ynXZ8M","createdAt":{"$$date":1598894322112},"updatedAt":{"$$date":1598894322112}}
 {"title":"Marcar territorio","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"ZkdkWl9aMQCe5tWz","createdAt":{"$$date":1598826188964},"updatedAt":{"$$date":1598826188964}}
 {"title":"Practicar lettering","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"dwbQTXRJ4keZ2zWD","createdAt":{"$$date":1598799024669},"updatedAt":{"$$date":1598799024669}}
 {"title":"No procastinar tanto","isDone":false,"ownerId":"Z4crMxOOgbsqdgY5","_id":"jXMRfBT6jHxDMany","createdAt":{"$$date":1598892880456},"updatedAt":{"$$date":1598892880456}}
@@ -13,7 +12,7 @@
 {"title":"Hacer ejercicio","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"lhYpasAuYUN6Z9ZE","createdAt":{"$$date":1598798984154},"updatedAt":{"$$date":1598798984154}}
 {"title":"Hacer feliz a mi esposa","isDone":false,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"nTbctkgikC5UWVxy","createdAt":{"$$date":1598792308162},"updatedAt":{"$$date":1598792308162}}
 {"title":"This is a random post Updated","isDone":true,"ownerId":"t1BxckXdxACxj1Sp","_id":"tjESvB6P4AV8Aesz","createdAt":{"$$date":1598894328159},"updatedAt":{"$$date":1598894379014}}
-{"title":"This is a random post 2","isDone":false,"ownerId":"t1BxckXdxACxj1Sp","_id":"uTKjBkZtgWA3MHlF","createdAt":{"$$date":1598894319413},"updatedAt":{"$$date":1598894319413}}
 {"title":"This is a random post","isDone":false,"ownerId":"t1BxckXdxACxj1Sp","_id":"x6SHhKIb8RmdppOk","createdAt":{"$$date":1598894313595},"updatedAt":{"$$date":1598894313595}}
-{"$$deleted":true,"_id":"uTKjBkZtgWA3MHlF"}
-{"$$deleted":true,"_id":"UPLlQT5Uq7ynXZ8M"}
+{"title":"Hacer feliz a mi esposa","isDone":true,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"nTbctkgikC5UWVxy","createdAt":{"$$date":1598792308162},"updatedAt":{"$$date":1598897815968}}
+{"title":"This is a random post Updated by Administrator","isDone":true,"ownerId":"t1BxckXdxACxj1Sp","_id":"tjESvB6P4AV8Aesz","createdAt":{"$$date":1598894328159},"updatedAt":{"$$date":1598897879797}}
+{"title":"Hacer ejercicio","isDone":true,"ownerId":"JBRodnfj6wjpQ6lN","_id":"lhYpasAuYUN6Z9ZE","createdAt":{"$$date":1598798984154},"updatedAt":{"$$date":1598897948780}}
