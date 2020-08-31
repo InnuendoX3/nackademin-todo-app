@@ -18,13 +18,11 @@ async function findTodo(id) {
       return userId === this.ownerId
     }
   }
-  console.log(response)
   return response
 }
 
-async function removeTodo(id) {
-  const query = { _id: id }
-  return await dbTodos.remove(query)
+async function removeTodo(filter) {
+  return await dbTodos.remove(filter)
 }
 
 async function updateTodo(id, newTodo) {

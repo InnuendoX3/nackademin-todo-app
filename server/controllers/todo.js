@@ -34,7 +34,7 @@ async function create(req, res) {
     })
 }
 
-// Retrieve just one Todo by its id
+// Get just one Todo by its id
 // Admin can access all todos
 // User can access just his own
 async function getTodo(req, res) {
@@ -57,17 +57,45 @@ async function getTodo(req, res) {
 
 // Delete a Todo by its id
 async function deleteTodo(req, res) {
-  const id = req.params.id
-  await todoModel.removeTodo(id)
-    .then( numDeleted => {
-      const response = {
-        message: `Number of Todos deleted: ${numDeleted}`
-      }
-      res.status(200).send(response)
-    })
-    .catch( error => {
-      res.status(400).send(error)
-    })
+  const todoId = req.params.id
+  const userId = req.user.userId
+  const role = req.user.role
+
+  // Admin can delete everyone´s todos
+  if(role === 'admin') {
+    const filterQuery = {_id: todoId}
+    await todoModel.removeTodo(filterQuery)
+      .then( numDeleted => {
+        const response = {
+          message: `Number of Todos deleted: ${numDeleted}`
+        }
+        res.status(200).send(response)
+      })
+      .catch( error => {
+        res.status(400).send(error)
+      })
+  }
+
+  // User can delete his own todos
+  if(role === 'user') {
+    const filterQuery = {
+      _id: todoId,
+      ownerId: userId
+    }
+    await todoModel.removeTodo(filterQuery)
+      .then( numDeleted => {
+        if(numDeleted === 0) 
+          return res.status(400).send({message: 'Unauthorized or item does not exist'})
+        const response = {
+          message: `Number of Todos deleted: ${numDeleted}`
+        }
+        res.status(200).send(response)
+      })
+      .catch( error => {
+        res.status(400).send(error)
+      })
+  }
+
 }
 
 // Edit Todo´s title and isDone 
