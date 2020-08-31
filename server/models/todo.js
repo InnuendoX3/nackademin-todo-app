@@ -10,7 +10,16 @@ async function saveTodo(todo) {
 
 async function findTodo(id) {
   const query = { _id: id }
-  return await dbTodos.findOne(query)
+  const todo = await dbTodos.findOne(query)
+  if(!todo) return null
+  const response = {
+    ...todo,
+    isOwner(userId) {
+      return userId === this.ownerId
+    }
+  }
+  console.log(response)
+  return response
 }
 
 async function removeTodo(id) {

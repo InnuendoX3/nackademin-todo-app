@@ -1,10 +1,9 @@
 const todoModel = require('../models/todo')
 
-/** 
- *  Get all Todos
- *  Admin get everybody's todos
- *  User get only the todos that own
- **/  
+
+//  Get all Todos
+//  Admin get everybody's todos
+//  User get only the todos that own   
 async function getAllTodos(req, res) {
   const filter = req.user.role === 'admin'
     ? {}
@@ -36,14 +35,22 @@ async function create(req, res) {
 }
 
 // Retrieve just one Todo by its id
+// Admin can access all todos
+// User can access just his own
 async function getTodo(req, res) {
-  const id = req.params.id
-  await todoModel.findTodo(id)
+  const todoId = req.params.id
+  const userId = req.user.userId
+  const role = req.user.role
+
+  await todoModel.findTodo(todoId)
     .then( todo => {
-      const response = todo ? todo : { message: 'Todo-item does not exist' }
-      res.status(200).send(response)
+      if(!todo) return res.sendStatus(400) 
+      if(role === 'admin') return res.status(200).send(todo)
+      if(!todo.isOwner(userId)) return res.sendStatus(401)
+      res.status(200).send(todo)
     })
     .catch( error => {
+      console.log(error)
       res.status(400).send(error)
     })
 }
