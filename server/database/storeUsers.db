@@ -1,6 +1,4 @@
 {"username":"Fanny","role":"user","hashedPass":"$2a$10$HfVV4f9Jdw4F5wkpAC.Z6ui7DJx065tAe2w8.Bz4Clue7/bIbReny","_id":"JBRodnfj6wjpQ6lN"}
 {"username":"Johan","role":"admin","hashedPass":"$2a$10$10XDm/YnxU2b0QK6r5tyAeRlP5vFbskcUD3wDW4op0HQwAqAcMWo.","_id":"UpBv0p8b4ZdpcEOY"}
 {"username":"Kiran","role":"user","hashedPass":"$2a$10$SshEbv3TQto.sqepF84Thu5IDgE1Ojsl159/yqfuOuiDj7KeLNbHa","_id":"Z4crMxOOgbsqdgY5"}
-{"username":"Random User","role":"user","hashedPass":"$2a$10$67FSQxudSHLJJbVN2taA2OnoviazPvrsvKMhjL/Ww5nu11dD2IxvW","_id":"t1BxckXdxACxj1Sp"}
-{"username":"Random User Updated by admin","role":"user","hashedPass":"$2a$10$HsOf.LDI/dlkKCiMF2iLQObvQ1hEU.rpU9DYRiEbZ6ArjoB1HZfgu","_id":"t1BxckXdxACxj1Sp"}
 {"username":"RandomUser","role":"user","hashedPass":"$2a$10$1iFHvfkQic2eZ3jc3MjGz.I8yc7CBe6QMmq51MtLQg80nkjmTd2R2","_id":"t1BxckXdxACxj1Sp"}
