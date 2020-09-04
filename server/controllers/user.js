@@ -39,7 +39,7 @@ async function getUser(req, res) {
   const idToFind = req.params.id
   const userId = req.user.userId
   const role = req.user.role
-  let queryFilter = {_id: idToFind}
+  const queryFilter = { _id: idToFind }
 
   if(role !== 'admin' && idToFind !== userId) return res.sendStatus(401)
 
@@ -54,9 +54,17 @@ async function getUser(req, res) {
 }
 
 // Delete a User by its id
+// Admin can delete all user
+// User just himself
 async function deleteUser(req, res) {
-  const id = req.params.id
-  await userModel.removeUser(id)
+  const idToDelete = req.params.id
+  const idUser = req.user.userId
+  const role = req.user.role
+  const queryFilter = { _id: idToDelete}
+
+  if(role !== 'admin' && idToDelete !== idUser) return res.sendStatus(401)
+
+  await userModel.removeUser(queryFilter)
     .then( numDeleted => {
       const response = {
         message: `Number of user deleted: ${numDeleted}`

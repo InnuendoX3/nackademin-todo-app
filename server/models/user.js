@@ -18,9 +18,8 @@ async function findUser(filterQuery) {
   return await dbUsers.findOne(filterQuery)
 }
 
-async function removeUser(id) {
-  const query = { _id: id }
-  return await dbUsers.remove(query)
+async function removeUser(filterQuery) {
+  return await dbUsers.remove(filterQuery)
 }
 
 async function updateUser(id, newUserData) {
