@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET
 
 // Retrieve all the Users from database
+// Admin
 async function getAllUsers(req, res) {
   await userModel.findUsers()
     .then( data => {
@@ -11,6 +12,7 @@ async function getAllUsers(req, res) {
 }
 
 // Create a new User
+// Admin
 async function createUser(req, res) {
   const user = {
     username: req.body.username,
@@ -31,9 +33,17 @@ async function createUser(req, res) {
 }
 
 // Retrieve a User by its id
+// Admin can get anyone's user doc
+// User just get his own
 async function getUser(req, res) {
-  const id = req.params.id
-  await userModel.findUser(id)
+  const idToFind = req.params.id
+  const userId = req.user.userId
+  const role = req.user.role
+  let queryFilter = {_id: idToFind}
+
+  if(role !== 'admin' && idToFind !== userId) return res.sendStatus(401)
+
+  await userModel.findUser(queryFilter)
     .then( user => {
       const response = user ? user : { message: 'That user does not exist' }
       res.status(200).send(response)

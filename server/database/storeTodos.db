@@ -13,6 +13,3 @@
 {"title":"Hacer feliz a mi esposa","isDone":true,"ownerId":"UpBv0p8b4ZdpcEOY","_id":"nTbctkgikC5UWVxy","createdAt":{"$$date":1598792308162},"updatedAt":{"$$date":1598897815968}}
 {"title":"This is a random post Updated by Administrator","isDone":true,"ownerId":"t1BxckXdxACxj1Sp","_id":"tjESvB6P4AV8Aesz","createdAt":{"$$date":1598894328159},"updatedAt":{"$$date":1598897879797}}
 {"title":"This is a random post","isDone":false,"ownerId":"t1BxckXdxACxj1Sp","_id":"x6SHhKIb8RmdppOk","createdAt":{"$$date":1598894313595},"updatedAt":{"$$date":1598894313595}}
-{"title":"Pa borrar","isDone":false,"ownerId":"JBRodnfj6wjpQ6lN","_id":"zos8EEVpch6LkcQ1","createdAt":{"$$date":1598902043479},"updatedAt":{"$$date":1598902043479}}
-{"title":"Pa borrar","isDone":true,"ownerId":"JBRodnfj6wjpQ6lN","_id":"zos8EEVpch6LkcQ1","createdAt":{"$$date":1598902043479},"updatedAt":{"$$date":1598902071491}}
-{"$$deleted":true,"_id":"zos8EEVpch6LkcQ1"}

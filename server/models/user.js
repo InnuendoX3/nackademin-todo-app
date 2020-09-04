@@ -14,9 +14,8 @@ async function saveUser(user) {
   return await dbUsers.insert(userToSave)
 }
 
-async function findUser(id) {
-  const query = { _id: id }
-  return await dbUsers.findOne(query)
+async function findUser(filterQuery) {
+  return await dbUsers.findOne(filterQuery)
 }
 
 async function removeUser(id) {
