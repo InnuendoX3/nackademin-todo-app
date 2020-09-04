@@ -77,14 +77,24 @@ async function deleteUser(req, res) {
 }
 
 // Edit User: name, password and role
+// Admin can edit all users
+// User just himself
 async function editUser(req, res) {
-  const id = req.params.id
+  const idUserToEdit = req.params.id
   const newUserData = {
     username: req.body.username,
     password: req.body.password,
     role: req.body.role
   }
-  await userModel.updateUser(id, newUserData)
+  const queryFilter = { _id: idUserToEdit}
+  
+  // Loged-User Info
+  const userId = req.user.userId
+  const role = req.user.role
+  
+  if(role !== 'admin' && idUserToEdit !== userId) return res.sendStatus(401)
+  
+  await userModel.updateUser(queryFilter, newUserData)
     .then( data => {
       const message = data ? 'User updated' : 'Could not update User'
       const response = {

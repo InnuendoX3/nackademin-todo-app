@@ -22,8 +22,7 @@ async function removeUser(filterQuery) {
   return await dbUsers.remove(filterQuery)
 }
 
-async function updateUser(id, newUserData) {
-  const query = { _id: id }
+async function updateUser(query, newUserData) {
   const newDataToSave = {
     username:   newUserData.username,
     role:       newUserData.role,
