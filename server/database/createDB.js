@@ -24,8 +24,19 @@ switch (environment) {
     break;
 }
 
+// Used on test environment
+function clearDatabases() {
+  if(environment === 'test') {
+    dbUsers.remove({}, {multi: true})
+    dbChecklists.remove({}, {multi: true})
+    dbTodos.remove({}, {multi: true})
+  }
+}
+
+
 module.exports = {
   dbUsers,
   dbChecklists,
   dbTodos,
+  clearDatabases
 }
