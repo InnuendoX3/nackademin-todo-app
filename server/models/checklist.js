@@ -8,7 +8,17 @@ async function findChecklist(query) {
   return await dbChecklists.findOne(query)
 }
 
+async function removeChecklist(query) {
+  return await dbChecklists.remove(query)
+}
+
+async function updateChecklist(query, toUpdate) {
+  return await dbChecklists.update(query, { $set: toUpdate }, { returnUpdatedDocs: true })
+}
+
 module.exports = {
   saveChecklist,
-  findChecklist
+  findChecklist,
+  removeChecklist,
+  updateChecklist
 }
