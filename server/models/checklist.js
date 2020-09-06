@@ -13,7 +13,6 @@ async function findChecklist(query) {
     ...checklist,
     todos
   }
-  //console.log('fullChecklist', fullChecklist)
   return fullChecklist
 }
 

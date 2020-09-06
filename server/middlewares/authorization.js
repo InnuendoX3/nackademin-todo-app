@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET
 
+/**
+ * Payload sent as req.user:
+ * {
+ *    userId,
+ *    role
+ * }
+*/
+
 function adminAuthorization(req, res, next) {
   if(!req.headers.authorization) return res.sendStatus(403)
   const token = req.headers.authorization.replace('Bearer ', '')

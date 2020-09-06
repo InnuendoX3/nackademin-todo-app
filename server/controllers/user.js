@@ -117,10 +117,10 @@ async function login(req, res) {
 
   try {
     const token = await userModel.authenticate(username, password)
-    console.log(token)
     res.status(200).send({ token })
   } catch (error) {
-    res.status(400).send({ message: error })
+    console.log(error)
+    res.status(400).send({ message: error.toString() })
   }
 }
 
