@@ -16,5 +16,7 @@ Todo:
   _id
   title
   isDone
+  ownerId
+  listedIn (checklistId)
   createdAt
   updatedAt

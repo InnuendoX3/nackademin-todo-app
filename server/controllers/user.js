@@ -1,6 +1,5 @@
 const userModel = require('../models/user')
-const jwt = require('jsonwebtoken')
-const secret = process.env.JWT_SECRET
+
 
 // Retrieve all the Users from database
 // Admin
@@ -116,19 +115,13 @@ async function login(req, res) {
   const username = req.body.username
   const password = req.body.password
 
-  const user = await userModel.findUserByUsername(username)
-  if(!user) return res.status(400).send({message: 'USERNAME or password incorrect'})
-
-  const isPassword = await userModel.isPasswordCorrect(password, user.hashedPass)
-  if(!isPassword) return res.status(400).send({message: 'Username or PASSWORD incorrect'})
-
-  // JWT 
-  const toEncrypt = {
-    userId: user._id,
-    role: user.role
+  try {
+    const token = await userModel.authenticate(username, password)
+    console.log(token)
+    res.status(200).send({ token })
+  } catch (error) {
+    res.status(400).send({ message: error })
   }
-  const token = { token: jwt.sign(toEncrypt, secret, { expiresIn: '1h' }) }
-  res.status(200).send(token)
 }
 
 
