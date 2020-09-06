@@ -109,8 +109,9 @@ async function editUser(req, res) {
 }
 
 
-/** Authentication functions */
-
+// Authentication
+// Takes username and password
+// Returns JWT signed Token
 async function login(req, res) {
   const username = req.body.username
   const password = req.body.password
