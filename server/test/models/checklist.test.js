@@ -1,7 +1,7 @@
 const { expect } = require('chai')
-const { clearDatabases } = require('../database/createDB')
-const checklistModel = require('../models/checklist')
-const todoModel = require('../models/todo')
+const { clearDatabases } = require('../../database/createDB')
+const checklistModel = require('../../models/checklist')
+const todoModel = require('../../models/todo')
 
 describe('Checklist tests:', () => {
   beforeEach(() => {
