@@ -26,7 +26,7 @@ async function removeTodo(filter) {
 }
 
 async function updateTodo(filter, newTodo) {
-  return await dbTodos.update(filter, { $set: newTodo }, {returnUpdatedDocs: true})
+  return await dbTodos.update(filter, { $set: newTodo }, { returnUpdatedDocs: true })
 }
 
 module.exports = {

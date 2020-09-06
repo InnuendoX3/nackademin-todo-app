@@ -1,0 +1,10 @@
+{"title":"I am a todo","isDone":false,"ownerId":"FakeUserId5hopApqxmYnhzjML","listedOn":"QPxe9FJD4gJ6bJ70","_id":"bMBbBtBHF6Vpd5oE","createdAt":{"$$date":1599385356593},"updatedAt":{"$$date":1599385356593}}
+{"title":"I am a todo","isDone":false,"ownerId":"FakeUserId5hopApqxmYnhzjML","listedOn":"QPxe9FJD4gJ6bJ70","_id":"4sFVYhDd78YzfBIr","createdAt":{"$$date":1599385356594},"updatedAt":{"$$date":1599385356594}}
+{"title":"I am a todo","isDone":false,"ownerId":"FakeUserId5hopApqxmYnhzjML","listedOn":"QPxe9FJD4gJ6bJ70","_id":"1z1v1VSQKZlT6gZr","createdAt":{"$$date":1599385356595},"updatedAt":{"$$date":1599385356595}}
+{"title":"I am a todo","isDone":false,"ownerId":"FakeUserId5hopApqxmYnhzjML","listedOn":"QPxe9FJD4gJ6bJ70","_id":"tuO3TEuNa1wtAc6q","createdAt":{"$$date":1599385356596},"updatedAt":{"$$date":1599385356596}}
+{"title":"I am a todo","isDone":false,"ownerId":"FakeUserId5hopApqxmYnhzjML","listedOn":"QPxe9FJD4gJ6bJ70","_id":"FhbhGLDNDNEr7lpD","createdAt":{"$$date":1599385356596},"updatedAt":{"$$date":1599385356596}}
+{"$$deleted":true,"_id":"1z1v1VSQKZlT6gZr"}
+{"$$deleted":true,"_id":"4sFVYhDd78YzfBIr"}
+{"$$deleted":true,"_id":"FhbhGLDNDNEr7lpD"}
+{"$$deleted":true,"_id":"bMBbBtBHF6Vpd5oE"}
+{"$$deleted":true,"_id":"tuO3TEuNa1wtAc6q"}

@@ -1,11 +1,20 @@
 const { dbChecklists } = require('../database/createDB')
+const todoModel = require('./todo')
 
 async function saveChecklist(checklist) {
   return await dbChecklists.insert(checklist)
 }
 
+// Return Checklist with its todos
 async function findChecklist(query) {
-  return await dbChecklists.findOne(query)
+  const checklist = await dbChecklists.findOne(query)
+  const todos = await todoModel.findTodos({ listedOn: checklist._id })
+  const fullChecklist = {
+    ...checklist,
+    todos
+  }
+  //console.log('fullChecklist', fullChecklist)
+  return fullChecklist
 }
 
 async function removeChecklist(query) {
