@@ -10,7 +10,6 @@ async function create(req, res) {
   }
   try {
     const response = await checklistModel.saveChecklist(newChecklist)
-    console.log('response', response)
     res
       .status(201)
       .send({ message: 'Checklist created', data: response })

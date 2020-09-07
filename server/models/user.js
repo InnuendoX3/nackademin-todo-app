@@ -48,7 +48,6 @@ async function isPasswordCorrect(pass, hash) {
 
 async function authenticate(username, password) {
   const user = await findUserByUsername(username)
-  console.log('user', user)
   if(!user) throw new Error('USERNAME or password incorrect')
 
   const isPassword = await isPasswordCorrect(password, user.hashedPass)
