@@ -1,7 +1,6 @@
 const checklistModel = require("../models/checklist")
 
 async function create(req, res) {
-  console.log('Entra a create')
   const title = req.body.title
   const userId = req.user.userId
   const newChecklist = {
@@ -13,8 +12,7 @@ async function create(req, res) {
     res
       .status(201)
       .send({ message: 'Checklist created', data: response })
-    } catch (error) {
-      console.log('Estoy en error')
+  } catch (error) {
     console.error(error)
     res.status(400).send({ message: error.toString() })
   }

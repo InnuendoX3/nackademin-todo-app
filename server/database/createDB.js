@@ -1,6 +1,5 @@
 const Datastore = require('nedb-promises')
 const environment = process.env.ENVIRONMENT
-console.log(environment)
 
 let dbUsers,
     dbChecklists,
