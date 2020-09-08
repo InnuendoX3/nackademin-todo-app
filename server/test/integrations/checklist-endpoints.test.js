@@ -53,7 +53,6 @@ describe('Integration test: Checklists endpoints', () => {
 
     const resp = await request(app)
       .get(`/checklists/${checklistSaved._id}`)
-      //.set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${this.test.token}`)
       .send()
     expect(resp).to.be.json
@@ -87,6 +86,23 @@ describe('Integration test: Checklists endpoints', () => {
     expect(resp.body).to.have.all.keys(['message','qtyTodosDeleted'])
     expect(resp.body.qtyTodosDeleted).to.equal(5)
   
+  })
+
+  it('PATCH /checklists/:someChecklistId Update a checklist', async function() {
+    const newChecklist = { title: 'Update me!', ownerId: this.test.userId }
+    const savedChecklist = await checklistModel.saveChecklist(newChecklist)
+
+    const whatToUpdate = { title: 'My title has been updated' }
+
+    const resp = await request(app)
+      .patch(`/checklists/${savedChecklist._id}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.token}`)
+      .send(whatToUpdate)
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['title', 'ownerId', '_id'])
+    expect(resp.body.title).to.equal('My title has been updated')
   })
 
 

@@ -53,8 +53,23 @@ async function deleteChecklist(req, res) {
   }
 }
 
+async function editChecklist(req, res) {
+  const query = { _id: req.params.checklistId}
+  const toUpdate = { title: req.body.title }
+
+  try {
+    const response = await checklistModel.updateChecklist(query, toUpdate)
+    res.status(200).send(response)
+  } catch (error) {
+    console.error(error)
+    res.status(400).send({ message: error.toString() })    
+  }
+
+}
+
 module.exports = {
   create,
   getChecklist,
-  deleteChecklist
+  deleteChecklist,
+  editChecklist
 }
