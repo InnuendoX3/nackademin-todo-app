@@ -34,9 +34,27 @@ async function getChecklist(req, res) {
     console.error(error)
     res.status(400).send({ message: error.toString() })
   } 
-} 
+}
+
+async function deleteChecklist(req, res) {
+  const checklistId = req.params.checklistId
+
+  try {
+    const numChecklistsDeleted = await checklistModel.removeChecklist({ _id: checklistId })
+    const numTodosDeleted = await todoModel.removeTodo({ listedOn: checklistId })
+    const response = {
+      message: `${numChecklistsDeleted} checklists deleted`,
+      qtyTodosDeleted: numTodosDeleted
+    }
+    res.status(200).send(response)
+  } catch (error) {
+    console.error(error)
+    res.status(400).send({ message: error.toString() })
+  }
+}
 
 module.exports = {
   create,
-  getChecklist
+  getChecklist,
+  deleteChecklist
 }

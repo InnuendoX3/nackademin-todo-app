@@ -13,11 +13,11 @@ describe('Integration test: Checklists endpoints', () => {
 
   beforeEach( async function() {
     clearDatabases()
+    // Login and save userId and Token
     const userToSave = { username: 'Paula', password: '12345', role: 'user'}
     const userSaved = await userModel.saveUser(userToSave)
     this.currentTest.userId = userSaved._id
     this.currentTest.token = await userModel.authenticate('Paula', '12345')
-
   })
 
   it('POST /checklists Create checklist', function(done) {
@@ -37,15 +37,15 @@ describe('Integration test: Checklists endpoints', () => {
     })
   })
   
-  it('GET /checklists: Get a checklist with its Todos', async function() {
-    const newList = { title: 'Get me back!', ownerId: this.test.userId }
+  it('GET /checklists/:someChecklistId Get a checklist with its Todos', async function() {
+    const userId = this.test.userId
+    const newList = { title: 'Get me back!', ownerId: userId }
     const checklistSaved = await checklistModel.saveChecklist(newList)
-    const userId = this.test.userId //For the expect. Don't work directly
     for(let i=0; i<5; i++) {
       const todo = {
         title: 'I am a todo',
         isDone: false,
-        ownerId: this.test.userId,
+        ownerId: userId,
         listedOn: checklistSaved._id
       }
       await todoModel.saveTodo(todo)
@@ -53,7 +53,7 @@ describe('Integration test: Checklists endpoints', () => {
 
     const resp = await request(app)
       .get(`/checklists/${checklistSaved._id}`)
-      .set('Content-Type', 'application/json')
+      //.set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${this.test.token}`)
       .send()
     expect(resp).to.be.json
@@ -64,5 +64,31 @@ describe('Integration test: Checklists endpoints', () => {
     expect(resp.body.todos.length).to.equal(5)
 
   })
+
+  it('DELETE /checklists/:someChecklistId Delete a checklist', async function() {
+    const newChecklist = { title: 'Delete me!', ownerId: this.test.userId }
+    const savedChecklist = await checklistModel.saveChecklist(newChecklist)
+    for(let i=0; i<5; i++) {
+      const todo = {
+        title: 'I am a todo for deleting',
+        isDone: false,
+        ownerId: this.test.userId,
+        listedOn: savedChecklist._id
+      }
+      await todoModel.saveTodo(todo)
+    }
+  
+    const resp = await request(app)
+      .delete(`/checklists/${savedChecklist._id}`)
+      .set('authorization', `Bearer ${this.test.token}`)
+      .send()
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['message','qtyTodosDeleted'])
+    expect(resp.body.qtyTodosDeleted).to.equal(5)
+  
+  })
+
+
 
 })

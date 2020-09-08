@@ -22,7 +22,7 @@ async function findTodo(id) {
 }
 
 async function removeTodo(filter) {
-  return await dbTodos.remove(filter)
+  return await dbTodos.remove(filter, { multi: true })
 }
 
 async function updateTodo(filter, newTodo) {
