@@ -1,5 +1,9 @@
 const { dbChecklists } = require('../database/createDB')
 
+async function findChecklists(query) {
+  return await dbChecklists.find(query)
+}
+
 async function saveChecklist(checklist) {
   return await dbChecklists.insert(checklist)
 }
@@ -19,6 +23,7 @@ async function updateChecklist(query, toUpdate) {
 }
 
 module.exports = {
+  findChecklists,
   saveChecklist,
   findChecklist,
   removeChecklist,

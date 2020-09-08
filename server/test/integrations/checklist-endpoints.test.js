@@ -5,8 +5,8 @@ const { expect, request } = chai
 const app = require('../../app')
 
 const { clearDatabases } = require('../../database/createDB')
-const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
+const userModel = require('../../models/user')
 const todoModel = require('../../models/todo')
 
 describe('Integration test: Checklists endpoints', () => {
@@ -20,23 +20,41 @@ describe('Integration test: Checklists endpoints', () => {
     this.currentTest.token = await userModel.authenticate('Paula', '12345')
   })
 
-  it('POST /checklists Create checklist', function(done) {
+  it('GET /checklists Get all checklists', async function() {
+    for(let i=0; i<3; i++) {
+      const cheklist = { title: 'Dummy checklist', ownerId: this.test.userId }
+      await checklistModel.saveChecklist(cheklist)
+    }
+
+    const resp = await request(app)
+      .get('/checklists')
+      .set('authorization', `Bearer ${this.test.token}`)
+      .send()
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body.length).to.equal(3)
+    expect(resp.body[0]).to.have.all.keys(['_id', 'title', 'ownerId'])
+    expect(resp.body[0].ownerId).to.equal(this.test.userId)
+
+  })
+
+
+  it('POST /checklists Create checklist', async function() {
     const body = { title: 'First list' }
     
-    request(app)
-    .post('/checklists')
-    .set('Content-Type', 'application/json')
-    .set('authorization', `Bearer ${this.test.token}`)
-    .send(body)
-    .end((err, resp) => {
-      expect(resp).to.be.a('object')
-      expect(resp).to.have.status(201)
-      expect(resp.body).to.have.all.keys(['message', 'data'])
-      expect(resp.body.data.ownerId).to.equal(this.test.userId)
-      done()
-    })
+    const resp = await request(app)
+      .post('/checklists')
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.token}`)
+      .send(body)
+    expect(resp).to.be.a('object')
+    expect(resp).to.have.status(201)
+    expect(resp.body).to.have.all.keys(['message', 'data'])
+    expect(resp.body.data.ownerId).to.equal(this.test.userId)
+
   })
   
+
   it('GET /checklists/:someChecklistId Get a checklist with its Todos', async function() {
     const userId = this.test.userId
     const newList = { title: 'Get me back!', ownerId: userId }
@@ -64,6 +82,7 @@ describe('Integration test: Checklists endpoints', () => {
 
   })
 
+
   it('DELETE /checklists/:someChecklistId Delete a checklist', async function() {
     const newChecklist = { title: 'Delete me!', ownerId: this.test.userId }
     const savedChecklist = await checklistModel.saveChecklist(newChecklist)
@@ -88,6 +107,7 @@ describe('Integration test: Checklists endpoints', () => {
   
   })
 
+
   it('PATCH /checklists/:someChecklistId Update a checklist', async function() {
     const newChecklist = { title: 'Update me!', ownerId: this.test.userId }
     const savedChecklist = await checklistModel.saveChecklist(newChecklist)
@@ -104,7 +124,6 @@ describe('Integration test: Checklists endpoints', () => {
     expect(resp.body).to.have.all.keys(['title', 'ownerId', '_id'])
     expect(resp.body.title).to.equal('My title has been updated')
   })
-
 
 
 })
