@@ -1,4 +1,5 @@
-const checklistModel = require("../models/checklist")
+const checklistModel = require('../models/checklist')
+const todoModel = require('../models/todo')
 
 async function create(req, res) {
   const title = req.body.title
@@ -18,6 +19,24 @@ async function create(req, res) {
   }
 }
 
+async function getChecklist(req, res) {
+  const checklistId = req.params.checklistId
+
+  try {
+    const checklist = await checklistModel.findChecklist({ _id: checklistId })
+    const todos = await todoModel.findTodos({ listedOn: checklist._id })
+    const fullChecklist = {
+      ...checklist,
+      todos
+    }
+    res.status(200).send(fullChecklist)
+  } catch (error) {
+    console.error(error)
+    res.status(400).send({ message: error.toString() })
+  } 
+} 
+
 module.exports = {
-  create
+  create,
+  getChecklist
 }
