@@ -50,20 +50,19 @@ describe('Integration test: Checklists endpoints', () => {
       }
       await todoModel.saveTodo(todo)
     }
-    
-    request(app)
+
+    const resp = await request(app)
       .get(`/checklists/${checklistSaved._id}`)
       .set('Content-Type', 'application/json')
       .set('authorization', `Bearer ${this.test.token}`)
       .send()
-      .end(function (err, resp) {
-        expect(resp).to.be.json
-        expect(resp).to.have.status(200)
-        expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId', 'todos'])
-        expect(resp.body.title).to.equal('Get me back!')
-        expect(resp.body.ownerId).to.equal(userId)
-        expect(resp.body.todos.length).to.equal(5)
-      })
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId', 'todos'])
+    expect(resp.body.title).to.equal('Get me back!')
+    expect(resp.body.ownerId).to.equal(userId)
+    expect(resp.body.todos.length).to.equal(5)
+
   })
 
 })
