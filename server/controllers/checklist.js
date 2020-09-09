@@ -2,8 +2,13 @@ const checklistModel = require('../models/checklist')
 const todoModel = require('../models/todo')
 
 async function getAllChecklists(req, res) {
+  let filter = {} //Admin
+  if(req.user.role === 'user') {
+    filter = { ownerId: req.user.userId }
+  }
+
   try {
-    const checklists = await checklistModel.findChecklists()
+    const checklists = await checklistModel.findChecklists(filter)
     res.status(200).send(checklists)
   } catch (error) {
     console.error(error)
