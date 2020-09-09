@@ -37,14 +37,19 @@ async function create(req, res) {
 
 async function getChecklist(req, res) {
   const checklistId = req.params.checklistId
+  const userId = req.user.userId
+  const role = req.user.role
+  const filter = { _id: checklistId }
 
   try {
-    const checklist = await checklistModel.findChecklist({ _id: checklistId })
+    const checklist = await checklistModel.findChecklist(filter)
+    if( role !== 'admin' && checklist.ownerId !== userId ) return res.sendStatus(401)
     const todos = await todoModel.findTodos({ listedOn: checklist._id })
     const fullChecklist = {
       ...checklist,
       todos
     }
+    //console.log('fullChecklist', fullChecklist)
     res.status(200).send(fullChecklist)
   } catch (error) {
     console.error(error)

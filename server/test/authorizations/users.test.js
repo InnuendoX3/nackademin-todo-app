@@ -74,7 +74,16 @@ describe('User authorization', function() {
     expect(resp.body[0].ownerId).to.equal(this.test.idUserA)
   })
 
+  it('UserA cannot get UserB checklists', async function() {
+    const checklistsUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
 
+    const resp = await request(app)
+      .get(`/checklists/${checklistsUserB._id}`)
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send()
+
+    expect(resp).to.have.status(401)
+  })
 
 
   // 

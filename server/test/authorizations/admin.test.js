@@ -52,7 +52,10 @@ describe('Admin authorization', function() {
         })
       }
     }
-    
+
+    // Users Id for compare on test
+    this.currentTest.idUserA = userA._id
+    this.currentTest.idUserB = userB._id
 
     // Login everyone
     this.currentTest.adminToken = await userModel.authenticate(person1.username, person1.password)
@@ -72,7 +75,19 @@ describe('Admin authorization', function() {
     expect(resp.body.length).to.equal(7)
   })
 
-  // Admin can get other's checklists
+  it('Admin can get others checklists', async function() {
+    const checklistsUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+
+    const resp = await request(app)
+      .get(`/checklists/${checklistsUserB._id}`)
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send()
+
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body.ownerId).to.equal(this.test.idUserB)
+  })
+
   // Admin can delete other's checklist
   // Admin can update other's checklist
 
