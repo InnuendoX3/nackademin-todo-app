@@ -8,7 +8,6 @@ async function saveChecklist(checklist) {
   return await dbChecklists.insert(checklist)
 }
 
-// Return Checklist
 async function findChecklist(query) {
   const checklist = await dbChecklists.findOne(query)
   return checklist

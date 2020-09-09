@@ -2,6 +2,7 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 const { expect, request } = chai
+
 const app = require('../../app')
 
 const { clearDatabases } = require('../../database/createDB')
