@@ -117,8 +117,37 @@ describe('Admin authorization', function() {
     expect(resp.body.title).to.equal('The administrator changed me!')
   })
 
-  // Admin can CRUDA other users
-  // Admin can CRUDA others todos
+  // Admin can take action on other users
+  it('Admin can get other users', async function() {
+    const resp = await request(app)
+      .get(`/users/${this.test.idUserB}`)
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send()
+
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body._id).to.equal(this.test.idUserB)
+  })
+
+  it('Admin can update other users', async function() {
+    const toUpdate = { username: 'User Z', password: '4321', role: 'admin' }
+
+    const resp = await request(app)
+      .patch(`/users/${this.test.idUserB}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send(toUpdate)
+    
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['data', 'message'])
+    expect(resp.body.data).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body.data.username).to.equal('User Z')
+    expect(resp.body.data.role).to.equal('admin')
+  })
+
+
   // Admin can CRUDA others todos
 
 

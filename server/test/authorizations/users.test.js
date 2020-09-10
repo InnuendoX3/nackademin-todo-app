@@ -113,9 +113,27 @@ describe('User authorization', function() {
 
   })
 
+  // User cannot take action on other users
+  it('User cannot get other users', async function() {
+    const resp = await request(app)
+      .get(`/users/${this.test.idUserB}`)
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send()
 
+    expect(resp).to.have.status(401)
+  })
 
-  // User cannot CRUDA other users
+  it('User cannot update other users', async function() {
+    const toUpdate = { username: 'User Z', password: '4321', role: 'admin' }
+
+    const resp = await request(app)
+      .patch(`/users/${this.test.idUserB}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send(toUpdate)
+
+    expect(resp).to.have.status(401)
+  })
 
   // User cannot CRUDA others todos
 
