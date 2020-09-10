@@ -147,6 +147,17 @@ describe('Admin authorization', function() {
     expect(resp.body.data.role).to.equal('admin')
   })
 
+  it('Admin can delete other users', async function() {
+    const resp = await request(app)
+      .delete(`/users/${this.test.idUserB}`)
+      .set('authorization', `${this.test.adminToken}`)
+      .send()
+    
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['message'])
+  })
+
 
   // Admin can CRUDA others todos
 

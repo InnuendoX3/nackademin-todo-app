@@ -135,6 +135,14 @@ describe('User authorization', function() {
     expect(resp).to.have.status(401)
   })
 
+  it('User cannot delete other users', async function() {
+    const resp = await request(app)
+      .delete(`/users/${this.test.idUserB}`)
+      .set('authorization', `${this.test.userAToken}`)
+
+    expect(resp).to.has.status(401)
+  })
+
   // User cannot CRUDA others todos
 
 
