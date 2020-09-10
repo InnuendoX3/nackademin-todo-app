@@ -162,19 +162,46 @@ describe('Admin authorization', function() {
   // Admin can take action on others todos
   it('Admin can get others todos', async function() {
     const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
-
+    
     const resp = await request(app)
-      .get(`/todos/${todoUserB._id}`)
-      .set('authorization', `Bearer ${this.test.adminToken}`)
-      .send()
-
+    .get(`/todos/${todoUserB._id}`)
+    .set('authorization', `Bearer ${this.test.adminToken}`)
+    .send()
+    
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body).to.include.keys(['_id', 'title', 'ownerId', 'listedOn', 'isDone'])
     expect(resp.body.ownerId).to.equal(this.test.idUserB)
   })
+  
+  it('Admin can update others todos', async function() {
+    const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
+    const toUpdate = { title: 'I will be updated!' }
 
+    const resp = await request(app)
+      .patch(`/todos/${todoUserB._id}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send(toUpdate)
 
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['message', 'data'])
+
+  })
+
+  it('Admin can delete others todos', async function() {
+    const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
+
+    const resp = await request(app)
+      .delete(`/todos/${todoUserB._id}`)
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send()
+
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['message'])
+  })
 
 
 

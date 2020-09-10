@@ -79,7 +79,7 @@ async function deleteTodo(req, res) {
   await todoModel.removeTodo(filterQuery)
     .then( numDeleted => {
       if(numDeleted === 0) 
-        return res.status(400).send({message: 'Unauthorized or item does not exist'})
+        return res.status(401).send({message: 'Unauthorized or item does not exist'})
       const response = {
         message: `Number of Todos deleted: ${numDeleted}`
       }
@@ -116,7 +116,7 @@ async function editTodo(req, res) {
 
   await todoModel.updateTodo(filterQuery, newTodo)
     .then( data => {
-      if(!data) return res.status(400).send({message: 'Unauthorized or item does not exist'})
+      if(!data) return res.status(401).send({message: 'Unauthorized or item does not exist'})
       const response = {
         message: 'Todo-item updated',
         data: data

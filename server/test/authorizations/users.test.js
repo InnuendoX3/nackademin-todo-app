@@ -146,12 +146,36 @@ describe('User authorization', function() {
   // User cannot take action on others todos
   it('User cannot get others todos', async function() {
     const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
- 
+    
     const resp = await request(app)
-      .get(`/todos/${todoUserB._id}`)
+    .get(`/todos/${todoUserB._id}`)
+    .set('authorization', `Bearer ${this.test.userAToken}`)
+    .send()
+    
+    expect(resp).to.have.status(401)
+  })
+  
+  it('User cannot update others todos', async function() {
+    const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
+    const toUpdate = { title: 'I will not be updated!' }
+
+    const resp = await request(app)
+      .patch(`/todos/${todoUserB._id}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send(toUpdate)
+
+    expect(resp).to.have.status(401)
+  })
+
+  it('User cannot delete others todos', async function() {
+    const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
+    
+    const resp = await request(app)
+      .delete(`/todos/${todoUserB._id}`)
       .set('authorization', `Bearer ${this.test.userAToken}`)
       .send()
-    
+
     expect(resp).to.have.status(401)
   })
 
