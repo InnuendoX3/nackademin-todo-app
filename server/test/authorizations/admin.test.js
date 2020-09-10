@@ -76,10 +76,10 @@ describe('Admin authorization', function() {
   })
 
   it('Admin can get others checklists', async function() {
-    const checklistsUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
 
     const resp = await request(app)
-      .get(`/checklists/${checklistsUserB._id}`)
+      .get(`/checklists/${checklistUserB._id}`)
       .set('authorization', `Bearer ${this.test.adminToken}`)
       .send()
 
@@ -88,11 +88,22 @@ describe('Admin authorization', function() {
     expect(resp.body.ownerId).to.equal(this.test.idUserB)
   })
 
-  // Admin can delete other's checklist
+  it('Admin can delete others checklist', async function() {
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+
+    const resp = await request(app)
+      .delete(`/checklists/${checklistUserB._id}`)
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send()
+
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['message', 'qtyTodosDeleted'])
+  })
+
   // Admin can update other's checklist
-
   // Admin can CRUDA other users
-
+  // Admin can CRUDA others todos
   // Admin can CRUDA others todos
 
 

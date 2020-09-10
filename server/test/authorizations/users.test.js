@@ -75,10 +75,10 @@ describe('User authorization', function() {
   })
 
   it('UserA cannot get UserB checklists', async function() {
-    const checklistsUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
 
     const resp = await request(app)
-      .get(`/checklists/${checklistsUserB._id}`)
+      .get(`/checklists/${checklistUserB._id}`)
       .set('authorization', `Bearer ${this.test.userAToken}`)
       .send()
 
@@ -86,8 +86,20 @@ describe('User authorization', function() {
   })
 
 
+  it('User cannot delete others checklist', async function() {
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+
+    const resp = await request(app)
+      .delete(`/checklists/${checklistUserB._id}`)
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send()
+
+    expect(resp).to.have.status(401)
+
+  })
+
+
   // 
-  // User cannot delete other's checklist
   // User cannot update other's checklist
 
   // User cannot CRUDA other users

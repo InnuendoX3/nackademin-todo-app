@@ -59,9 +59,16 @@ async function getChecklist(req, res) {
 
 async function deleteChecklist(req, res) {
   const checklistId = req.params.checklistId
+  const role = req.user.role
+  const userId = req.user.userId
+  let filter = {}
+
+  if( role === 'admin' ) filter = { _id: checklistId }
+  if( role === 'user' )  filter = { _id: checklistId, ownerId: userId}
 
   try {
-    const numChecklistsDeleted = await checklistModel.removeChecklist({ _id: checklistId })
+    const numChecklistsDeleted = await checklistModel.removeChecklist(filter)
+    if(!numChecklistsDeleted) return res.status(401).send({ message: 'Not authorized / Not found' })
     const numTodosDeleted = await todoModel.removeTodo({ listedOn: checklistId })
     const response = {
       message: `${numChecklistsDeleted} checklists deleted`,
