@@ -9,6 +9,7 @@ const {clearDatabases} = require('../../database/createDB')
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
+const authorization = require('../../middlewares/authorization')
 
 describe('User authorization', function() {
 
@@ -95,12 +96,24 @@ describe('User authorization', function() {
       .send()
 
     expect(resp).to.have.status(401)
+  })
+
+  it('User cannot update others checklist', async function() {
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+    const somethingNew = { title: 'I should not change at all' }
+
+    const resp = await request(app)
+      .patch(`/checklists/${checklistUserB._id}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send(somethingNew)
+
+    expect(resp).to.have.status(401)
+    expect(resp.body).to.have.all.keys(['message'])
 
   })
 
 
-  // 
-  // User cannot update other's checklist
 
   // User cannot CRUDA other users
 

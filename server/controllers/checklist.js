@@ -61,10 +61,9 @@ async function deleteChecklist(req, res) {
   const checklistId = req.params.checklistId
   const role = req.user.role
   const userId = req.user.userId
-  let filter = {}
+  let filter = { _id: checklistId } // Admin
 
-  if( role === 'admin' ) filter = { _id: checklistId }
-  if( role === 'user' )  filter = { _id: checklistId, ownerId: userId}
+  if( role === 'user' )  filter = { _id: checklistId, ownerId: userId }
 
   try {
     const numChecklistsDeleted = await checklistModel.removeChecklist(filter)
@@ -82,11 +81,18 @@ async function deleteChecklist(req, res) {
 }
 
 async function editChecklist(req, res) {
-  const query = { _id: req.params.checklistId}
+  const checklistId = req.params.checklistId
+  const userId = req.user.userId
+  const role = req.user.role
+
+  let filter = { _id: checklistId} // Admin
   const toUpdate = { title: req.body.title }
 
+  if( role === 'user' ) filter = { _id: checklistId, ownerId: userId }
+
   try {
-    const response = await checklistModel.updateChecklist(query, toUpdate)
+    const response = await checklistModel.updateChecklist(filter, toUpdate)
+    if (!response) return res.status(401).send({ message: 'Not authorized / Not found' })
     res.status(200).send(response)
   } catch (error) {
     console.error(error)

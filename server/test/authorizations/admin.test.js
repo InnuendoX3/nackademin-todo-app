@@ -101,7 +101,22 @@ describe('Admin authorization', function() {
     expect(resp.body).to.have.all.keys(['message', 'qtyTodosDeleted'])
   })
 
-  // Admin can update other's checklist
+  it('Admin can update others checklist', async function() {
+    const checklistUserB = await checklistModel.findChecklist({ ownerId: this.test.idUserB })
+    const somethingNew = { title: 'The administrator changed me!' }
+
+    const resp = await request(app)
+      .patch(`/checklists/${checklistUserB._id}`)
+      .set('Content-Type', 'application/json')
+      .set('authorization', `Bearer ${this.test.adminToken}`)
+      .send(somethingNew)
+
+    expect(resp).to.be.json
+    expect(resp).to.have.status(200)
+    expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId'])
+    expect(resp.body.title).to.equal('The administrator changed me!')
+  })
+
   // Admin can CRUDA other users
   // Admin can CRUDA others todos
   // Admin can CRUDA others todos
