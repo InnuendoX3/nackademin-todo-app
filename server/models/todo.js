@@ -8,9 +8,8 @@ async function saveTodo(todo) {
   return await dbTodos.insert(todo)
 }
 
-async function findTodo(id) {
-  const query = { _id: id }
-  const todo = await dbTodos.findOne(query)
+async function findTodo(filter) {
+  const todo = await dbTodos.findOne(filter)
   if(!todo) return null
   const response = {
     ...todo,

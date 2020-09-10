@@ -42,8 +42,9 @@ async function getTodo(req, res) {
   const todoId = req.params.id
   const userId = req.user.userId
   const role = req.user.role
+  const filter = { _id: todoId}
 
-  await todoModel.findTodo(todoId)
+  await todoModel.findTodo(filter)
     .then( todo => {
       if(!todo) return res.sendStatus(400) 
       if(role === 'admin') return res.status(200).send(todo)

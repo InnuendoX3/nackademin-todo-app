@@ -143,7 +143,17 @@ describe('User authorization', function() {
     expect(resp).to.has.status(401)
   })
 
-  // User cannot CRUDA others todos
+  // User cannot take action on others todos
+  it('User cannot get others todos', async function() {
+    const todoUserB = await todoModel.findTodo({ ownerId: this.test.idUserB })
+ 
+    const resp = await request(app)
+      .get(`/todos/${todoUserB._id}`)
+      .set('authorization', `Bearer ${this.test.userAToken}`)
+      .send()
+    
+    expect(resp).to.have.status(401)
+  })
 
 
 
