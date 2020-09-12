@@ -14,7 +14,7 @@ async function findChecklist(query) {
 }
 
 async function removeChecklist(query) {
-  return await dbChecklists.remove(query)
+  return await dbChecklists.remove(query, {multi: true})
 }
 
 async function updateChecklist(query, toUpdate) {

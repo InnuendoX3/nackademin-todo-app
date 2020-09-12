@@ -9,7 +9,6 @@ const gdprRouter = require('./routes/gdpr')
 
 const cors = require('cors')
 
-
 const app = express()
 
 
