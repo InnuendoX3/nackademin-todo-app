@@ -12,7 +12,7 @@ const todoModel = require('../../models/todo')
 
 describe('GDPR', function() {
 
-  before( async function() {
+  beforeEach( async function() {
     clearDatabases()
     
     // Create user
@@ -56,6 +56,20 @@ describe('GDPR', function() {
     expect(resp.body.data).to.have.all.keys(['checklistsDeleted', 'todosDeleted'])
     expect(resp.body.data.checklistsDeleted).to.equal(5)
     expect(resp.body.data.todosDeleted).to.equal(30)
+  })
+
+  it('Show all user info and content: Checklist and todos', async function() {
+    const resp = await request(app)
+      .get('/gdpr/show-me-my-data')
+      .set('authorization', `Bearer ${this.test.userToken}`)
+      .send()
+
+    expect(resp).to.have.status(200)
+    expect(resp).to.be.json
+    expect(resp.body).to.have.all.keys(['username', 'role', 'checklists'])
+    expect(resp.body.checklists.length).to.equal(5)
+    expect(resp.body.checklists[0]).to.have.all.keys(['title', 'todos'])
+    expect(resp.body.checklists[0].todos.length).to.equal(6)
   })
 
 

@@ -32,11 +32,40 @@ async function deleteUserAndContent(req, res) {
     console.error(error)
     res.status(400).send({ message: error.toString()})
   }
+}
 
+async function getUserAndContent(req, res) {
+  const userId = req.user.userId
+  try {
+    // Get user
+    const user = await userModel.findUser({ _id: userId})
+    let fullUser = {
+      username: user.username,
+      role: user.role,
+      checklists: []
+    }
+    // Get checklists
+    const checklists = await checklistModel.findChecklists({ ownerId: userId })
+    for (const checklist of checklists) {
+      // Get todos
+      const todos = await todoModel.findTodos({ listedOn: checklist._id } )
+      // Fill todos on checklist
+      const fullChecklist = {
+        title: checklist.title,
+        todos: todos
+      }
+      fullUser.checklists.push(fullChecklist)
+    }
+    res.status(200).send(fullUser)
 
+  } catch (error) {
+    console.error(error)
+    res.status(400).send({ error: error.toString()})
+  }
 }
 
 module.exports = {
   getPrivacyPolicy,
+  getUserAndContent,
   deleteUserAndContent
 }
