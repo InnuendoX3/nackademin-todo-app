@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "SET ENVIRONMENT=test&&mocha --recursive",
-    "start": "node app"
+    "start": "node startApp"
   },
   "repository": {
     "type": "git",
