@@ -11,19 +11,17 @@ const cors = require('cors')
 
 const app = express()
 
-
 app.use(express.json())
-// app.use(express.urlencoded())
 app.use(cors())
 
-app.use('/', (req, res) => {
-  res.status(200).send({ message: 'API should be working!' })
-})
 app.use('/users', userRouter)
 app.use('/checklists', checklistRouter)
 app.use('/todos', todoRouter)
 app.use('/login', authRouter)
 app.use('/gdpr', gdprRouter)
 
+app.use('/', (req, res) => {
+  res.status(200).send({ message: 'API should be working!' })
+})
 
 module.exports = app
