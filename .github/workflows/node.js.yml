@@ -26,3 +26,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: cd server && npm ci
     - run: cd server && npm test
+      env:
+        JWT_SECRET: babb27158c6d83f75d81deac555612b02e36e0d300a6190991a710a707f83cff
