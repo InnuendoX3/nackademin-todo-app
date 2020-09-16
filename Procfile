@@ -1,1 +1,1 @@
-web: sh -c 'cd server'
+web: server
