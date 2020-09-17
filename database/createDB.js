@@ -1,5 +1,7 @@
-const Datastore = require('nedb-promises')
+//const Datastore = require('nedb-promises')
 const environment = process.env.ENVIRONMENT
+const dbUrl = process.env.DB_URL
+const mongoose = require('mongoose')
 
 let dbUsers,
     dbChecklists,
@@ -7,9 +9,27 @@ let dbUsers,
 
 switch (environment) {
   case 'development':
-    dbUsers = Datastore.create({ filename: './database/storeUsers.db', autoload: true })
+    const status = mongoose.connection
+
+    mongoose.connect(dbUrl, {
+      useNewUrlParser: true,    // Something deprecated
+      useUnifiedTopology: true, // Something deprecated
+    })
+
+    status.on('connected', () => {
+      console.log('Connected to DB')
+    })
+    status.on('disconnected', () => {
+      console.log('Disconnected from DB')
+    })
+    status.on('error', err => {
+      console.log(err)
+    })  
+
+/*     dbUsers = Datastore.create({ filename: './database/storeUsers.db', autoload: true })
     dbChecklists = Datastore.create({ filename: './database/storeChecklists.db', autoload: true })
-    dbTodos = Datastore.create({ filename: './database/storeTodos.db', timestampData: true, autoload: true })
+    dbTodos = Datastore.create({ filename: './database/storeTodos.db', timestampData: true, autoload: true }) */
+
     break
 
   case 'test':

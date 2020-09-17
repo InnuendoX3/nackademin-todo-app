@@ -1,11 +1,33 @@
-const { dbChecklists } = require('../database/createDB')
+//const { dbChecklists } = require('../database/createDB')
+const mongoose = require('mongoose')
+
+const checklistSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  ownerId: {
+    type: String,
+    required: true
+  }
+  /* ownerId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true
+  } */
+})
+
+const ChecklistModel = mongoose.model('Checklist', checklistSchema)
+
 
 async function findChecklists(query) {
   return await dbChecklists.find(query)
 }
 
 async function saveChecklist(checklist) {
-  return await dbChecklists.insert(checklist)
+  const newChecklist = new ChecklistModel(checklist)
+  return await newChecklist.save()
+  // return await dbChecklists.insert(checklist)
 }
 
 async function findChecklist(query) {
