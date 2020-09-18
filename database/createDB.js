@@ -9,8 +9,7 @@ switch (environment) {
     break
   case 'test':
 		const { MongoMemoryServer } = require('mongodb-memory-server')
-		mongoDatabase = new MongoMemoryServer()
-    console.log('mongoDatabase', mongoDatabase)
+		mongoDatabase = new MongoMemoryServer({ binary: { version: '4.4.1' } })
     break
 
   default:
@@ -21,7 +20,6 @@ switch (environment) {
 
 async function dbConnect() {
   const dbUrl = await mongoDatabase.getUri()
-  console.log('dbUrl', dbUrl)
   
   mongoose.connect(dbUrl, {
     useNewUrlParser: true,    // Something deprecated
@@ -31,25 +29,23 @@ async function dbConnect() {
   
   const status = mongoose.connection
   
-  status.on('connected', () => {
+/*   status.on('connected', () => {
     console.log('Connected to DB')
   })
   status.on('disconnected', () => {
     console.log('Disconnected from DB')
-  })
+  }) */
   status.on('error', err => {
     console.log(err)
   })
 }
 
 async function dbDisconnect() {
-  if(process.env.ENVIRONMENT == 'test' || process.env.ENVIRONMENT == 'development'){
-      await mongoDatabase.stop()
-  }
   await mongoose.disconnect()
+  if(process.env.ENVIRONMENT == 'test' || process.env.ENVIRONMENT == 'development'){
+    await mongoDatabase.stop()
+  }
 }
-
-
 
 
 // Used on test environment
@@ -63,9 +59,6 @@ async function clearDatabases() {
     }
   }
 }
-
-
-
 
 
 module.exports = {

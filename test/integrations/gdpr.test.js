@@ -5,12 +5,16 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const { clearDatabases } = require('../../database/createDB')
+const { clearDatabases, dbConnect, dbDisconnect  } = require('../../database/createDB')
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
 
 describe('GDPR', function() {
+
+  before( async function() {
+    await dbConnect()
+  })
 
   beforeEach( async function() {
     clearDatabases()
@@ -42,6 +46,10 @@ describe('GDPR', function() {
     // Login
     this.currentTest.userToken = await userModel.authenticate(person.username, person.password)
     
+  })
+
+  after(async function () {
+    await dbDisconnect()
   })
 
   it('A user can delete his account and all his content', async function() {

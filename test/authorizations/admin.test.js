@@ -19,7 +19,6 @@ describe('Admin authorization', function() {
 
   beforeEach( async function() {
     clearDatabases()
-    console.log('Entra beforeEach Authorization')
     const person1 = { username: 'iAmAdmin', password: '12345', role: 'admin' }
     const person2 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const person3 = { username: 'iAmUser2', password: '12345', role: 'user' }
@@ -27,9 +26,7 @@ describe('Admin authorization', function() {
     const userA = await userModel.saveUser(person2)
     const userB = await userModel.saveUser(person3)
 
-    console.log('admin', admin)
-
-/*     // UserA: Make 4 checklist and 2 todos per Checklist
+    // UserA: Make 4 checklist and 2 todos per Checklist
     for(let i=0; i<4; i++) {
       const checklistUserA = await checklistModel.saveChecklist({
         title: `Things I got to do UserA #${i}`,
@@ -59,7 +56,7 @@ describe('Admin authorization', function() {
           listedOn: checklistUserB._id
         })
       } 
-    } */
+    }
 
     // Users Id for compare on test
     this.currentTest.idUserA = userA._id
@@ -73,8 +70,8 @@ describe('Admin authorization', function() {
   })
 
   after(async function () {
-    await dbDisconnect();
-  });
+    await dbDisconnect()
+  })
 
   it('Admin can get all the Checklists', async function() {
     const resp = await request(app)
@@ -97,7 +94,7 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body.ownerId).to.equal(this.test.idUserB)
+    expect(resp.body.ownerId).to.equal(this.test.idUserB.toString())
   })
 
   it('Admin can delete others checklist', async function() {
@@ -125,7 +122,7 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId'])
+    expect(resp.body).to.have.all.keys(['__v','_id', 'title', 'ownerId'])
     expect(resp.body.title).to.equal('The administrator changed me!')
   })
 
@@ -138,8 +135,8 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
-    expect(resp.body._id).to.equal(this.test.idUserB)
+    expect(resp.body).to.have.all.keys(['__v', '_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body._id).to.equal(this.test.idUserB.toString())
   })
 
   it('Admin can update other users', async function() {
@@ -154,7 +151,7 @@ describe('Admin authorization', function() {
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body).to.have.all.keys(['data', 'message'])
-    expect(resp.body.data).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body.data).to.have.all.keys(['__v', '_id', 'username', 'hashedPass', 'role'])
     expect(resp.body.data.username).to.equal('User Z')
     expect(resp.body.data.role).to.equal('admin')
   })
@@ -183,7 +180,7 @@ describe('Admin authorization', function() {
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body).to.include.keys(['_id', 'title', 'ownerId', 'listedOn', 'isDone'])
-    expect(resp.body.ownerId).to.equal(this.test.idUserB)
+    expect(resp.body.ownerId).to.equal(this.test.idUserB.toString())
   })
   
   it('Admin can update others todos', async function() {

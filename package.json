@@ -4,7 +4,7 @@
   "description": "ToDo app",
   "main": "app.js",
   "scripts": {
-    "test": "cross-env ENVIRONMENT=test mocha --recursive",
+    "test": "cross-env ENVIRONMENT=test mocha --recursive -b",
     "start": "node startApp"
   },
   "repository": {

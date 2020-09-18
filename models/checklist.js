@@ -26,16 +26,18 @@ async function findChecklists(query) {
 // Mongo ok
 async function saveChecklist(checklist) {
   const newChecklist = new ChecklistModel(checklist)
+  //console.log('newChecklist', newChecklist)
   return await newChecklist.save()
 }
 
-// Mongo // Fix todos
+// Mongo
 async function findChecklist(query) {
   const checklist = await ChecklistModel.findOne(query)
+  // console.log('checklist i model', checklist)
   return checklist
 }
 
-// Mongo // Fix todos
+// Mongo
 async function removeChecklist(query) {
   const response = await ChecklistModel.deleteMany(query)
   return response.deletedCount
