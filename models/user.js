@@ -1,10 +1,30 @@
-const { dbUsers } = require("../database/createDB");
+const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const secret = process.env.JWT_SECRET
 
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  hashedPass: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  }
+})
+
+const UserModel = mongoose.model('User', userSchema)
+
+
+/** UserModel functions **/
+
 async function findUsers() {
-  return await dbUsers.find()
+  return await UserModel.find()
 }
 
 async function saveUser(user) {
@@ -13,24 +33,31 @@ async function saveUser(user) {
     role: user.role,
     hashedPass: bcrypt.hashSync(user.password, 10)
   }
-  return await dbUsers.insert(userToSave)
+  const newUser = new UserModel(userToSave)
+  //console.log('newUser', newUser)
+  const tempResponse = await newUser.save()
+  //console.log('tempResponse', tempResponse)
+  return tempResponse
 }
 
 async function findUser(filterQuery) {
-  return await dbUsers.findOne(filterQuery)
+  return await UserModel.findOne(filterQuery)
 }
 
 async function removeUser(filterQuery) {
-  return await dbUsers.remove(filterQuery)
+  const response = await UserModel.deleteOne(filterQuery)
+  return response.deletedCount
 }
 
+// TODO: Do not return hashed pass
 async function updateUser(query, newUserData) {
   const newDataToSave = {
     username: newUserData.username,
     role: newUserData.role,
     hashedPass: bcrypt.hashSync(newUserData.password, 10)
   }
-  return await dbUsers.update(query, { $set: newDataToSave }, { returnUpdatedDocs: true })
+  const response = await UserModel.findOneAndUpdate(query, newDataToSave, { new: true })
+  return response
 }
 
 
@@ -38,7 +65,7 @@ async function updateUser(query, newUserData) {
 
 async function findUserByUsername(username) {
   const query = { username }
-  const user = await dbUsers.findOne(query)
+  const user = await UserModel.findOne(query)
   return user
 }
 

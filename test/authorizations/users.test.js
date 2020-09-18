@@ -5,13 +5,17 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const {clearDatabases} = require('../../database/createDB')
+const  { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
 const authorization = require('../../middlewares/authorization')
 
 describe('User authorization', function() {
+
+  before( async function() {
+    await dbConnect()
+  })
 
   beforeEach( async function() {
     clearDatabases()
@@ -51,17 +55,22 @@ describe('User authorization', function() {
         })
       }
     }
-    
 
     // Users Id for compare on test
-    this.currentTest.idUserA = userA._id
-    this.currentTest.idUserB = userB._id
+    this.currentTest.idUserA = userA._id.toString()
+    this.currentTest.idUserB = userB._id.toString()
 
     // Login everyone
     this.currentTest.userAToken = await userModel.authenticate(person2.username, person2.password)
     this.currentTest.userBToken = await userModel.authenticate(person3.username, person3.password)
 
   })
+
+  after(async function () {
+    await dbDisconnect()
+  })
+
+
 
   it('User cannot get all the Checklists as Admin do', async function() {
     const resp = await request(app)

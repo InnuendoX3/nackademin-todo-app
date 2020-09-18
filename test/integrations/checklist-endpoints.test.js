@@ -5,20 +5,28 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const { clearDatabases } = require('../../database/createDB')
+const { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
 const checklistModel = require('../../models/checklist')
 const userModel = require('../../models/user')
 const todoModel = require('../../models/todo')
 
 describe('Integration test: Checklists endpoints', () => {
 
+  before( async function() {
+    await dbConnect()
+  })
+
   beforeEach( async function() {
     clearDatabases()
     // Login and save userId and Token
     const userToSave = { username: 'Paula', password: '12345', role: 'user'}
     const userSaved = await userModel.saveUser(userToSave)
-    this.currentTest.userId = userSaved._id
+    this.currentTest.userId = userSaved._id.toString()
     this.currentTest.token = await userModel.authenticate('Paula', '12345')
+  })
+
+  after(async function () {
+    await dbDisconnect()
   })
 
   it('GET /checklists Get all checklists', async function() {
@@ -34,7 +42,7 @@ describe('Integration test: Checklists endpoints', () => {
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body.length).to.equal(3)
-    expect(resp.body[0]).to.have.all.keys(['_id', 'title', 'ownerId'])
+    expect(resp.body[0]).to.have.all.keys(['__v', '_id', 'title', 'ownerId'])
     expect(resp.body[0].ownerId).to.equal(this.test.userId)
 
   })
@@ -76,7 +84,7 @@ describe('Integration test: Checklists endpoints', () => {
       .send()
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId', 'todos'])
+    expect(resp.body).to.have.all.keys(['__v', '_id', 'title', 'ownerId', 'todos'])
     expect(resp.body.title).to.equal('Get me back!')
     expect(resp.body.ownerId).to.equal(userId)
     expect(resp.body.todos.length).to.equal(5)
@@ -122,7 +130,7 @@ describe('Integration test: Checklists endpoints', () => {
       .send(whatToUpdate)
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['title', 'ownerId', '_id'])
+    expect(resp.body).to.have.all.keys(['__v', 'title', 'ownerId', '_id'])
     expect(resp.body.title).to.equal('My title has been updated')
   })
 

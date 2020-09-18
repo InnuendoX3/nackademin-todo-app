@@ -20,7 +20,7 @@ async function create(req, res) {
     title: req.body.title,
     isDone: false,
     ownerId: req.user.userId,
-    listeOn: req.user.listeOn //new
+    listedOn: req.body.listedOn //new / Changed user. to body.
   }
   await todoModel.saveTodo(todo)
     .then( data => {

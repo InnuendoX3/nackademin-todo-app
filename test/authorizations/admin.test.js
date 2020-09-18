@@ -5,12 +5,17 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const {clearDatabases} = require('../../database/createDB')
+const { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
+
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
 
 describe('Admin authorization', function() {
+
+  before( async function() {
+    await dbConnect()
+  })
 
   beforeEach( async function() {
     clearDatabases()
@@ -50,7 +55,7 @@ describe('Admin authorization', function() {
           ownerId: userB._id,
           listedOn: checklistUserB._id
         })
-      }
+      } 
     }
 
     // Users Id for compare on test
@@ -62,6 +67,10 @@ describe('Admin authorization', function() {
     this.currentTest.userAToken = await userModel.authenticate(person2.username, person2.password)
     this.currentTest.userBToken = await userModel.authenticate(person3.username, person3.password)
 
+  })
+
+  after(async function () {
+    await dbDisconnect()
   })
 
   it('Admin can get all the Checklists', async function() {
@@ -85,7 +94,7 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body.ownerId).to.equal(this.test.idUserB)
+    expect(resp.body.ownerId).to.equal(this.test.idUserB.toString())
   })
 
   it('Admin can delete others checklist', async function() {
@@ -113,7 +122,7 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['_id', 'title', 'ownerId'])
+    expect(resp.body).to.have.all.keys(['__v','_id', 'title', 'ownerId'])
     expect(resp.body.title).to.equal('The administrator changed me!')
   })
 
@@ -126,8 +135,8 @@ describe('Admin authorization', function() {
 
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
-    expect(resp.body).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
-    expect(resp.body._id).to.equal(this.test.idUserB)
+    expect(resp.body).to.have.all.keys(['__v', '_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body._id).to.equal(this.test.idUserB.toString())
   })
 
   it('Admin can update other users', async function() {
@@ -142,7 +151,7 @@ describe('Admin authorization', function() {
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body).to.have.all.keys(['data', 'message'])
-    expect(resp.body.data).to.have.all.keys(['_id', 'username', 'hashedPass', 'role'])
+    expect(resp.body.data).to.have.all.keys(['__v', '_id', 'username', 'hashedPass', 'role'])
     expect(resp.body.data.username).to.equal('User Z')
     expect(resp.body.data.role).to.equal('admin')
   })
@@ -171,7 +180,7 @@ describe('Admin authorization', function() {
     expect(resp).to.be.json
     expect(resp).to.have.status(200)
     expect(resp.body).to.include.keys(['_id', 'title', 'ownerId', 'listedOn', 'isDone'])
-    expect(resp.body.ownerId).to.equal(this.test.idUserB)
+    expect(resp.body.ownerId).to.equal(this.test.idUserB.toString())
   })
   
   it('Admin can update others todos', async function() {
