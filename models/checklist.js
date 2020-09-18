@@ -7,40 +7,43 @@ const checklistSchema = new mongoose.Schema({
     required: true
   },
   ownerId: {
-    type: String,
-    required: true
-  }
-  /* ownerId: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true
-  } */
+  }
 })
 
 const ChecklistModel = mongoose.model('Checklist', checklistSchema)
 
 
+/** UserModel functions **/
+
+// Mongo ok
 async function findChecklists(query) {
-  return await dbChecklists.find(query)
+  return await ChecklistModel.find(query)
 }
 
+// Mongo ok
 async function saveChecklist(checklist) {
   const newChecklist = new ChecklistModel(checklist)
   return await newChecklist.save()
-  // return await dbChecklists.insert(checklist)
 }
 
+// Mongo // Fix todos
 async function findChecklist(query) {
-  const checklist = await dbChecklists.findOne(query)
+  const checklist = await ChecklistModel.findOne(query)
   return checklist
 }
 
+// Mongo // Fix todos
 async function removeChecklist(query) {
-  return await dbChecklists.remove(query, {multi: true})
+  const response = await ChecklistModel.deleteMany(query)
+  return response.deletedCount
 }
 
+// Mongo ok
 async function updateChecklist(query, toUpdate) {
-  return await dbChecklists.update(query, { $set: toUpdate }, { returnUpdatedDocs: true })
+  return await ChecklistModel.findOneAndUpdate(query, toUpdate, { new: true })
 }
 
 module.exports = {

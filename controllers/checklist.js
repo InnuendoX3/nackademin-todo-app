@@ -43,7 +43,7 @@ async function getChecklist(req, res) {
 
   try {
     const checklist = await checklistModel.findChecklist(filter)
-    if( role !== 'admin' && checklist.ownerId !== userId ) return res.sendStatus(401)
+    if( role !== 'admin' && checklist.ownerId.toString() !== userId ) return res.sendStatus(401)
     const todos = await todoModel.findTodos({ listedOn: checklist._id })
     const fullChecklist = {
       ...checklist,

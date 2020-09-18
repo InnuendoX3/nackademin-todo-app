@@ -5,15 +5,21 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const {clearDatabases} = require('../../database/createDB')
+const { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
+
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
 
 describe('Admin authorization', function() {
 
+  before( async function() {
+    await dbConnect()
+  })
+
   beforeEach( async function() {
     clearDatabases()
+    console.log('Entra beforeEach Authorization')
     const person1 = { username: 'iAmAdmin', password: '12345', role: 'admin' }
     const person2 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const person3 = { username: 'iAmUser2', password: '12345', role: 'user' }
@@ -21,7 +27,9 @@ describe('Admin authorization', function() {
     const userA = await userModel.saveUser(person2)
     const userB = await userModel.saveUser(person3)
 
-    // UserA: Make 4 checklist and 2 todos per Checklist
+    console.log('admin', admin)
+
+/*     // UserA: Make 4 checklist and 2 todos per Checklist
     for(let i=0; i<4; i++) {
       const checklistUserA = await checklistModel.saveChecklist({
         title: `Things I got to do UserA #${i}`,
@@ -50,8 +58,8 @@ describe('Admin authorization', function() {
           ownerId: userB._id,
           listedOn: checklistUserB._id
         })
-      }
-    }
+      } 
+    } */
 
     // Users Id for compare on test
     this.currentTest.idUserA = userA._id
@@ -63,6 +71,10 @@ describe('Admin authorization', function() {
     this.currentTest.userBToken = await userModel.authenticate(person3.username, person3.password)
 
   })
+
+  after(async function () {
+    await dbDisconnect();
+  });
 
   it('Admin can get all the Checklists', async function() {
     const resp = await request(app)

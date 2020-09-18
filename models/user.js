@@ -34,7 +34,10 @@ async function saveUser(user) {
     hashedPass: bcrypt.hashSync(user.password, 10)
   }
   const newUser = new UserModel(userToSave)
-  return await newUser.save()
+  //console.log('newUser', newUser)
+  const tempResponse = await newUser.save()
+  //console.log('tempResponse', tempResponse)
+  return tempResponse
 }
 
 async function findUser(filterQuery) {
@@ -53,7 +56,7 @@ async function updateUser(query, newUserData) {
     role: newUserData.role,
     hashedPass: bcrypt.hashSync(newUserData.password, 10)
   }
-  const response = await UserModel.findOneAndUpdate(query, newDataToSave, { new: true, useFindAndModify: false })
+  const response = await UserModel.findOneAndUpdate(query, newDataToSave, { new: true })
   return response
 }
 
