@@ -30,5 +30,10 @@
     "mongodb-memory-server": "^6.7.6",
     "mongoose": "^5.10.5",
     "nedb-promises": "^4.0.4"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "4.4.1"
+    }
   }
 }
