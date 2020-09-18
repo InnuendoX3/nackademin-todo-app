@@ -13,8 +13,12 @@ const authorization = require('../../middlewares/authorization')
 
 describe('User authorization', function() {
 
-  before( async function() {
+  before(async function() {
     await dbConnect()
+  })
+  
+  after( async function () {
+    await dbDisconnect()
   })
 
   beforeEach( async function() {
@@ -65,11 +69,6 @@ describe('User authorization', function() {
     this.currentTest.userBToken = await userModel.authenticate(person3.username, person3.password)
 
   })
-
-  after(async function () {
-    await dbDisconnect()
-  })
-
 
 
   it('User cannot get all the Checklists as Admin do', async function() {

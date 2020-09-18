@@ -75,7 +75,11 @@ async function isPasswordCorrect(pass, hash) {
 
 async function authenticate(username, password) {
   const user = await findUserByUsername(username)
-  if(!user) throw new Error('USERNAME or password incorrect')
+  if(!user) {
+    // Tests sometimes goes wrong here
+    console.log('!user on authentication', user)
+    throw new Error('USERNAME or password incorrect')
+  }
 
   const isPassword = await isPasswordCorrect(password, user.hashedPass)
   if(!isPassword) throw new Error('Username or PASSWORD incorrect')

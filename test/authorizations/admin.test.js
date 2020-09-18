@@ -17,6 +17,10 @@ describe('Admin authorization', function() {
     await dbConnect()
   })
 
+  after( async function () {
+    await dbDisconnect()
+  })
+
   beforeEach( async function() {
     clearDatabases()
     const person1 = { username: 'iAmAdmin', password: '12345', role: 'admin' }
@@ -69,9 +73,6 @@ describe('Admin authorization', function() {
 
   })
 
-  after(async function () {
-    await dbDisconnect()
-  })
 
   it('Admin can get all the Checklists', async function() {
     const resp = await request(app)
