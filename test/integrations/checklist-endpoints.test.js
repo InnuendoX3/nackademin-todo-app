@@ -5,7 +5,7 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
+const { dbConnect, dbDisconnect } = require('../../database/createDB')
 const checklistModel = require('../../models/checklist')
 const userModel = require('../../models/user')
 const todoModel = require('../../models/todo')
@@ -17,11 +17,11 @@ describe('Integration test: Checklists endpoints', () => {
   })
 
   beforeEach( async function() {
-    // clearDatabases()
+    // Clear Databases
     await userModel.clear()
     await checklistModel.clear()
     await todoModel.clear()
-    
+
     // Login and save userId and Token
     const userToSave = { username: 'Paula', password: '12345', role: 'user'}
     const userSaved = await userModel.saveUser(userToSave)

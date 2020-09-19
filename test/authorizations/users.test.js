@@ -5,7 +5,7 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const  { clearDatabases, dbConnect, dbDisconnect } = require('../../database/createDB')
+const  { dbConnect, dbDisconnect } = require('../../database/createDB')
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
@@ -22,11 +22,11 @@ describe('User authorization', function() {
   })
 
   beforeEach( async function() {
-    // clearDatabases()
+    // Clear Databases
     await userModel.clear()
     await checklistModel.clear()
     await todoModel.clear()
-    
+
     const person2 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const person3 = { username: 'iAmUser2', password: '12345', role: 'user' }
     const userA = await userModel.saveUser(person2)

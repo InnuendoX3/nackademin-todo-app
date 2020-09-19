@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const { clearDatabases, dbConnect, dbDisconnect  } = require('../../database/createDB')
+const { dbConnect, dbDisconnect  } = require('../../database/createDB')
 const checklistModel = require('../../models/checklist')
 const userModel = require('../../models/user')
 
@@ -10,7 +10,7 @@ describe('Checklist tests:', () => {
   })
 
   beforeEach( async function() {
-    //clearDatabases()
+    // Clear Databases
     await userModel.clear()
     await checklistModel.clear()
     

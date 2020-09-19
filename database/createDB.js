@@ -59,19 +59,6 @@ async function dbDisconnect() {
 }
 
 
-// Used on test environment
-async function clearDatabases() {
-  if (environment === 'test') {
-    const collections = mongoose.connection.collections;
-
-    for (const key in collections) {
-      const collection = collections[key];
-      await collection.deleteMany();
-    }
-  }
-}
-
-
 module.exports = {
   dbConnect,
   dbDisconnect

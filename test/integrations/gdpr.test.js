@@ -5,7 +5,7 @@ const { expect, request } = chai
 
 const app = require('../../app')
 
-const { clearDatabases, dbConnect, dbDisconnect  } = require('../../database/createDB')
+const { dbConnect, dbDisconnect  } = require('../../database/createDB')
 const userModel = require('../../models/user')
 const checklistModel = require('../../models/checklist')
 const todoModel = require('../../models/todo')
@@ -17,7 +17,7 @@ describe('GDPR', function() {
   })
 
   beforeEach( async function() {
-    //clearDatabases()
+    // Clear Databases
     await userModel.clear()
     await checklistModel.clear()
     await todoModel.clear()

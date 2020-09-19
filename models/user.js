@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
 
 const UserModel = mongoose.model('User', userSchema)
 
-async function clear() {
-  return await UserModel.deleteMany({})
-}
-
 
 /** UserModel functions **/
 
@@ -64,6 +60,11 @@ async function updateUser(query, newUserData) {
   return response
 }
 
+// Only clear on tests
+async function clear() {
+  if (process.env.ENVIRONMENT === 'test') return await UserModel.deleteMany({})
+}
+
 
 /** Authentication functions */
 
@@ -98,7 +99,6 @@ async function authenticate(username, password) {
   const token = jwt.sign(toEncrypt, secret, { expiresIn: '1h' })
   return token
 }
-
 
 
 module.exports = {

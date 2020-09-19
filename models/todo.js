@@ -1,4 +1,3 @@
-const { dbTodos } = require('../database/createDB')
 const mongoose = require('mongoose')
 
 const todoSchema = new mongoose.Schema({
@@ -24,24 +23,18 @@ const todoSchema = new mongoose.Schema({
 
 const TodoModel = mongoose.model('Todo', todoSchema)
 
-async function clear() {
-  return await TodoModel.deleteMany({})
-}
 
 /** UserModel functions **/
 
-// Mongo ok
 async function findTodos(filter) {
   return await TodoModel.find(filter)
 }
 
-// Mongo ok
 async function saveTodo(todo) {
   const newTodo = new TodoModel(todo)
   return await newTodo.save()
 }
 
-// Mongo ok
 async function findTodo(filter) {
   const todo = await TodoModel.findOne(filter)
   if(!todo) return null
@@ -54,7 +47,6 @@ async function findTodo(filter) {
   return response
 }
 
-// Mongo ok
 async function removeTodo(filter) {
   const response = await TodoModel.deleteMany(filter)
   return response.deletedCount
@@ -64,6 +56,12 @@ async function removeTodo(filter) {
 async function updateTodo(filter, newTodo) {
   return await TodoModel.findOneAndUpdate(filter, newTodo, { new: true })
 }
+
+// Only clear on tests
+async function clear() {
+  if (process.env.ENVIRONMENT === 'test') return await TodoModel.deleteMany({})
+}
+
 
 module.exports = {
   findTodos,
