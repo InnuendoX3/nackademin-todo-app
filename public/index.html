@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 id="nackademin-todo-app">nackademin-todo-app</h1>
+  <h3 id="first-time">First time</h3>
+  <p>First time log in using this credentials:</p>
+  <ul>
+    <li>username: Admin</li>
+    <li>password: Admin</li>
+  </ul>
+  <h3 id="api-specifikation">API Specifikation</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Resurs</th>
+        <th>Metod</th>
+        <th>Detaljer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>/login/</td>
+        <td>POST</td>
+        <td>Register with username &amp; password.Returns JWT-token Authorization-header.</td>
+      </tr>
+      <tr>
+        <td>/gdpr/</td>
+        <td>GET</td>
+        <td>Return Privacy Policy (HTML)</td>
+      </tr>
+      <tr>
+        <td>/gdpr/show-me-my-data</td>
+        <td>GET</td>
+        <td>Return user info, checklists and todos</td>
+      </tr>
+      <tr>
+        <td>/gdpr/forget-me-please</td>
+        <td>DELETE</td>
+        <td>Delete all the user info, checklists and todos</td>
+      </tr>
+      <tr>
+        <td>/users/</td>
+        <td>GET</td>
+        <td>Return all users (Admin)</td>
+      </tr>
+      <tr>
+        <td>/users/</td>
+        <td>GET</td>
+        <td>Return all users (Admin)</td>
+      </tr>
+      <tr>
+        <td>/users/:id</td>
+        <td>GET</td>
+        <td>Return a user (Admin all / User himself)</td>
+      </tr>
+      <tr>
+        <td>/users/</td>
+        <td>POST</td>
+        <td>Create a user [username, password, role] (Admin)</td>
+      </tr>
+      <tr>
+        <td>/users/:id</td>
+        <td>DELETE</td>
+        <td>Delete user (Admin all / User himself)</td>
+      </tr>
+      <tr>
+        <td>/users/:id</td>
+        <td>PATCH</td>
+        <td>Update user [username, password, role] (Admin all / User himself)</td>
+      </tr>
+      <tr>
+        <td>/checklists/</td>
+        <td>GET</td>
+        <td>Return all checklists (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/checklists/:id</td>
+        <td>GET</td>
+        <td>Return a checklist (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/checklists/</td>
+        <td>POST</td>
+        <td>Create a checklist [title]</td>
+      </tr>
+      <tr>
+        <td>/checklists/:id</td>
+        <td>DELETE</td>
+        <td>Delete checklist (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/checklists/:id</td>
+        <td>PATCH</td>
+        <td>Update checklist [title] (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/todos/</td>
+        <td>GET</td>
+        <td>Return all todos (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/todos/:id</td>
+        <td>GET</td>
+        <td>Return a todo (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/todos/</td>
+        <td>POST</td>
+        <td>Create a todo [title, listedOn (Must be a created checklistId)]</td>
+      </tr>
+      <tr>
+        <td>/todos/:id</td>
+        <td>DELETE</td>
+        <td>Delete todo (Admin all / User his own)</td>
+      </tr>
+      <tr>
+        <td>/todos/:id</td>
+        <td>PATCH</td>
+        <td>Update todo [title, isDone] (Admin all / User his own)</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="auth-end-point-response">Auth End-Point Response</h3>
+  <pre><code class="lang-js">{
+  <span class="hljs-attribute">token</span>: <span class="hljs-string">"SomEKiNdoFTokEn"</span>
+}
+</code></pre>
+  <h3 id="models">Models</h3>
+  <h4 id="user">User</h4>
+  <pre><code class="lang-javascript"> {
+    <span class="hljs-attribute">_id</span>: <span class="hljs-string">'29y7gbbZk1u4ABnv'</span>,
+    username: <span class="hljs-string">'Pepito Perez'</span>,
+    hashedPass: <span class="hljs-string">'ahAsHEdPasS'</span>,
+    role: <span class="hljs-string">'admin'</span> / <span class="hljs-string">'user'</span>
+}
+</code></pre>
+  <h4 id="checklist">Checklist</h4>
+  <pre><code class="lang-javascript"> {
+    <span class="hljs-attribute">_id</span>: <span class="hljs-string">'39y7gbbZk1u4ABnv'</span>,
+    title: <span class="hljs-string">'Some title'</span>,
+    ownerId: <span class="hljs-string">'B9y7gbbZk1u4ABnv'</span>
+}
+</code></pre>
+  <h4 id="todo">Todo</h4>
+  <pre><code class="lang-javascript"> {
+    <span class="hljs-attribute">_id</span>: <span class="hljs-string">'49y7gbbZk1u4ABnv'</span>
+    <span class="hljs-attribute">title</span>: <span class="hljs-string">'Some title'</span>,
+    <span class="hljs-attribute">isDone</span>: true / false
+    <span class="hljs-attribute">ownerId</span>: <span class="hljs-string">'B9y7gbbZk1u4ABnv'</span>,
+    <span class="hljs-attribute">listedOn</span>: <span class="hljs-string">'39y7gbbZk1u4ABnv'</span>
+
+}
+</code></pre>
+
+</body>
+
+</html>
