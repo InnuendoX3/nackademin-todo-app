@@ -21,17 +21,17 @@ First time log in using this credentials:
 | /users/:id | GET | Return a user (Admin all / User himself) |
 | /users/ | POST | Create a user [username, password, role] (Admin) |
 | /users/:id | DELETE | Delete user (Admin all / User himself) |
-| /users/:id | PATCH | Update user (Admin all / User himself) |
+| /users/:id | PATCH | Update user [username, password, role] (Admin all / User himself) |
 | /checklists/ | GET | Return all checklists (Admin all / User his own) |
 | /checklists/:id | GET | Return a checklist (Admin all / User his own) |
 | /checklists/ | POST | Create a checklist [title] |
 | /checklists/:id | DELETE | Delete checklist (Admin all / User his own) |
-| /checklists/:id | PATCH | Update checklist (Admin all / User his own) |
+| /checklists/:id | PATCH | Update checklist [title] (Admin all / User his own) |
 | /todos/ | GET | Return all todos (Admin all / User his own) |
 | /todos/:id | GET | Return a todo (Admin all / User his own) |
-| /todos/ | POST | Create a todo [title, listedOn (Must be a checklistId) |
+| /todos/ | POST | Create a todo [title, listedOn (Must be a created checklistId)] |
 | /todos/:id | DELETE | Delete todo (Admin all / User his own) |
-| /todos/:id | PATCH | Update todo (Admin all / User his own) |
+| /todos/:id | PATCH | Update todo [title, isDone] (Admin all / User his own) |
 
 
 ### Auth End-Point Response

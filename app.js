@@ -23,7 +23,7 @@ app.use('/login', authRouter)
 app.use('/gdpr', gdprRouter)
 
 app.use('/', (req, res) => {
-  res.status(200).send({ message: 'API should be working!' })
+  res.status(200).sendFile(__dirname + '/public/index.html')
 })
 
 module.exports = app
