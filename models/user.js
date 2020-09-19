@@ -77,7 +77,7 @@ async function authenticate(username, password) {
   const user = await findUserByUsername(username)
   if(!user) {
     // Tests sometimes goes wrong here
-    console.log('Fail on some authentication test:')
+    console.log('Fail on random before each authentication test:')
     console.log('username comes?', username)
     console.log('!user on authentication ->', user)
     throw new Error('USERNAME or password incorrect')
