@@ -191,4 +191,4 @@ describe('User authorization', function() {
 
 
 
-}) */
+})  */
