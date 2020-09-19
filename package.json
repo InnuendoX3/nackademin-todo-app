@@ -4,12 +4,17 @@
   "description": "ToDo app",
   "main": "app.js",
   "scripts": {
-    "test": "cross-env ENVIRONMENT=test mocha --exit --recursive -b",
+    "test": "cross-env ENVIRONMENT=test mocha --exit --recursive",
     "start": "node startApp"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/InnuendoX3/nackademin-todo-app.git"
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "4.4.1"
+    }
   },
   "author": "Johan Garzon",
   "license": "ISC",
@@ -30,10 +35,5 @@
     "mongodb-memory-server": "^6.7.6",
     "mongoose": "^5.10.5",
     "nedb-promises": "^4.0.4"
-  },
-  "config": {
-    "mongodbMemoryServer": {
-      "version": "4.4.1"
-    }
   }
 }
