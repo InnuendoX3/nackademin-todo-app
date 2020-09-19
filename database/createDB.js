@@ -44,6 +44,10 @@ async function dbConnect() {
     status.on('disconnected', () => {
       console.log('Disconnected from DB')
     }) */
+
+  status.once('connected', () => {
+    console.log('Connected to DB')
+  })
      
   status.on('error', err => {
     console.log(err)
