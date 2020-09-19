@@ -34,9 +34,7 @@ async function saveUser(user) {
     hashedPass: bcrypt.hashSync(user.password, 10)
   }
   const newUser = new UserModel(userToSave)
-  //console.log('newUser', newUser)
   const tempResponse = await newUser.save()
-  //console.log('tempResponse', tempResponse)
   return tempResponse
 }
 
@@ -81,10 +79,6 @@ async function isPasswordCorrect(pass, hash) {
 async function authenticate(username, password) {
   const user = await findUserByUsername(username)
   if(!user) {
-    // Tests sometimes goes wrong here
-    console.log('Fail on random before each authentication test:')
-    console.log('username comes?', username)
-    console.log('!user on authentication ->', user)
     throw new Error('USERNAME or password incorrect')
   }
 
@@ -100,6 +94,31 @@ async function authenticate(username, password) {
   return token
 }
 
+/**
+ * Create a basic-first-user Admin
+ * so the app is accesible for first time use
+ */
+
+async function createFirstUserAdmin(user) {
+  // Looking for first-admin or other admins
+  const firstUserAdmin = await findUserByUsername('Admin')
+  const otherAdmins = await UserModel.findOne({ role: 'admin' })
+  
+  // If no first-admin or admins at all, create first-admin
+  if( !firstUserAdmin && !otherAdmins ) {
+    const user = {
+      username: 'Admin',
+      role: 'admin',
+      hashedPass: bcrypt.hashSync('Admin', 10)
+
+    }
+    const firstAdmin = new UserModel(user)
+    const response = await firstAdmin.save()
+    if(response) return console.log('First Admin created -> Username: Admin Password: Admin')
+  }
+
+}
+
 
 module.exports = {
   findUsers,
@@ -110,5 +129,6 @@ module.exports = {
   findUserByUsername,
   isPasswordCorrect,
   authenticate,
-  clear
+  clear,
+  createFirstUserAdmin
 }

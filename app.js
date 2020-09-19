@@ -7,12 +7,14 @@ const todoRouter = require('./routes/todo')
 const authRouter = require('./routes/auth')
 const gdprRouter = require('./routes/gdpr')
 
+
 const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+
 
 app.use('/users', userRouter)
 app.use('/checklists', checklistRouter)
