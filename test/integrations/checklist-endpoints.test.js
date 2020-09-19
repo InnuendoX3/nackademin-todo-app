@@ -17,7 +17,11 @@ describe('Integration test: Checklists endpoints', () => {
   })
 
   beforeEach( async function() {
-    clearDatabases()
+    // clearDatabases()
+    await userModel.clear()
+    await checklistModel.clear()
+    await todoModel.clear()
+    
     // Login and save userId and Token
     const userToSave = { username: 'Paula', password: '12345', role: 'user'}
     const userSaved = await userModel.saveUser(userToSave)

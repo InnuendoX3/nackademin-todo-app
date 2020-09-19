@@ -22,7 +22,11 @@ describe('Admin authorization', function() {
   })
 
   beforeEach( async function() {
-    clearDatabases()
+    //clearDatabases()
+    await userModel.clear()
+    await checklistModel.clear()
+    await todoModel.clear()
+    
     const person1 = { username: 'iAmAdmin', password: '12345', role: 'admin' }
     const person2 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const person3 = { username: 'iAmUser2', password: '12345', role: 'user' }

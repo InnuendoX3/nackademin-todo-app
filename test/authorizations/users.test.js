@@ -1,4 +1,4 @@
-/* const chai = require('chai')
+const chai = require('chai')
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 const { expect, request } = chai
@@ -22,7 +22,11 @@ describe('User authorization', function() {
   })
 
   beforeEach( async function() {
-    clearDatabases()
+    // clearDatabases()
+    await userModel.clear()
+    await checklistModel.clear()
+    await todoModel.clear()
+    
     const person2 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const person3 = { username: 'iAmUser2', password: '12345', role: 'user' }
     const userA = await userModel.saveUser(person2)
@@ -191,4 +195,4 @@ describe('User authorization', function() {
 
 
 
-})  */
+})

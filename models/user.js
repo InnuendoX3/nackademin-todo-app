@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
 
 const UserModel = mongoose.model('User', userSchema)
 
+async function clear() {
+  return await UserModel.deleteMany({})
+}
+
 
 /** UserModel functions **/
 
@@ -105,5 +109,6 @@ module.exports = {
   updateUser,
   findUserByUsername,
   isPasswordCorrect,
-  authenticate
+  authenticate,
+  clear
 }

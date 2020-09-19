@@ -15,6 +15,10 @@ const checklistSchema = new mongoose.Schema({
 
 const ChecklistModel = mongoose.model('Checklist', checklistSchema)
 
+async function clear() {
+  return await ChecklistModel.deleteMany({})
+}
+
 
 /** UserModel functions **/
 
@@ -53,5 +57,6 @@ module.exports = {
   saveChecklist,
   findChecklist,
   removeChecklist,
-  updateChecklist
+  updateChecklist,
+  clear
 }

@@ -74,6 +74,5 @@ async function clearDatabases() {
 
 module.exports = {
   dbConnect,
-  dbDisconnect,
-  clearDatabases
+  dbDisconnect
 }

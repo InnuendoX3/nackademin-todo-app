@@ -24,6 +24,9 @@ const todoSchema = new mongoose.Schema({
 
 const TodoModel = mongoose.model('Todo', todoSchema)
 
+async function clear() {
+  return await TodoModel.deleteMany({})
+}
 
 /** UserModel functions **/
 
@@ -68,4 +71,5 @@ module.exports = {
   findTodo,
   removeTodo,
   updateTodo,
+  clear
 }

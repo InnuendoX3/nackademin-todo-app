@@ -17,7 +17,10 @@ describe('GDPR', function() {
   })
 
   beforeEach( async function() {
-    clearDatabases()
+    //clearDatabases()
+    await userModel.clear()
+    await checklistModel.clear()
+    await todoModel.clear()
     
     // Create user
     const person = { username: 'Pepito', password: '12345', role: 'user' }

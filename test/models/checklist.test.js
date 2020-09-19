@@ -10,7 +10,10 @@ describe('Checklist tests:', () => {
   })
 
   beforeEach( async function() {
-    clearDatabases()
+    //clearDatabases()
+    await userModel.clear()
+    await checklistModel.clear()
+    
     const person1 = { username: 'iAmUser1', password: '12345', role: 'user' }
     const userA = await userModel.saveUser(person1)
 
